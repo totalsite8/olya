@@ -3,7 +3,7 @@ import { StickyMediaStory } from '../scrolly/StickyMediaStory'
 import { TIMELINE, EDUCATION } from '../../data/timeline'
 import { IMG } from '../../data/images'
 
-const TIMELINE_IMAGES = [IMG.footer.background, IMG.hero.background, IMG.ecozavr.productGrid, IMG.domashniy.mascotLaptop, IMG.alfa.hero]
+const TIMELINE_IMAGES = [IMG.path.education, IMG.path.agency, IMG.path.ecozavr, IMG.path.domashniy, IMG.path.alfa]
 
 export function TimelineSection() {
   const steps = [

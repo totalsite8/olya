@@ -92,6 +92,13 @@ export const IMG = {
   footer: {
     background: '/images/06_footer/footer-background-abstract.webp',
   },
+  path: {
+    education: '/images/11_path/path-education.jpg',
+    agency: '/images/11_path/path-agency.jpg',
+    ecozavr: '/images/11_path/path-ecozavr.jpg',
+    domashniy: '/images/11_path/path-domashniy.jpg',
+    alfa: '/images/11_path/path-alfa.jpg',
+  },
   video: {
     unlitPoster: '/images/07_video/unlit-poster.webp',
     unlitFrame01: '/images/07_video/unlit-frame-01.webp',
