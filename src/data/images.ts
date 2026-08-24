@@ -2,6 +2,7 @@
 export const IMG = {
   shared: {
     domashniyMascotLaptop: '/images/00_shared/domashniy-mascot-pink-laptop.webp',
+    servicesBridge: '/images/00_shared/services-bridge-collage.jpg',
   },
   hero: {
     background: '/images/01_hero/hero-background-abstract.webp',
@@ -100,6 +101,7 @@ export const IMG = {
     unlitFrame05: '/images/07_video/unlit-frame-05.webp',
     storyboard: '/images/07_video/unlit-storyboard-frames.jpg',
     motionGuide: '/images/07_video/unlit-motion-guide.jpg',
+    resultsScreen: '/images/07_video/unlit-results-screen.jpg',
   },
   social: {
     heroBg: '/images/08_social/social-hero-bg.jpg',
@@ -108,6 +110,7 @@ export const IMG = {
     storyMockup: '/images/08_social/social-story-mockup.jpg',
     guidebook: '/images/08_social/social-guidebook-spread.jpg',
     calendar: '/images/08_social/social-content-calendar.jpg',
+    resultsDashboard: '/images/08_social/social-results-dashboard.jpg',
   },
   aiVisuals: {
     heroBg: '/images/09_ai/ai-hero-bg.jpg',
@@ -116,6 +119,7 @@ export const IMG = {
     productRender: '/images/09_ai/ai-product-render.jpg',
     modelTraining: '/images/09_ai/ai-model-training.jpg',
     scalingGrid: '/images/09_ai/ai-scaling-grid.jpg',
+    beforeAfter: '/images/09_ai/ai-before-after.jpg',
   },
   pitch: {
     heroBg: '/images/10_pitch/pitch-hero-bg.jpg',
@@ -123,6 +127,7 @@ export const IMG = {
     coverSlide: '/images/10_pitch/pitch-cover-slide.jpg',
     slidesGrid: '/images/10_pitch/pitch-slides-grid.jpg',
     narrativeBoard: '/images/10_pitch/pitch-narrative-board.jpg',
+    dealClosed: '/images/10_pitch/pitch-deal-closed.jpg',
   },
 } as const
 

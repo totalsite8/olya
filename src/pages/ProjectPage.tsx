@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowUpRight, Target, UserCog, ShieldAlert } from 'lucide-react'
 import { PROJECTS } from '../data/projects'
 import { CaseVideoPlayer } from '../components/portfolio/CaseVideoPlayer'
+import { ChapterNav } from '../components/scrolly/ChapterNav'
+import { RevealText } from '../components/scrolly/RevealText'
 import { ensureGsapPlugins, gsap } from '../lib/gsap'
 import type { PortfolioProject } from '../types/portfolio'
 
@@ -20,9 +22,18 @@ export function ProjectPage() {
 
   if (!project) return <Navigate to="/portfolio" replace />
 
+  const chapters = [
+    { id: 'hero', label: 'Начало' },
+    { id: 'brief', label: 'Задача и роль' },
+    { id: 'gallery', label: 'Работа' },
+    ...(project.outcome ? [{ id: 'outcome', label: 'Итог' }] : []),
+    { id: 'next', label: 'Следующий проект' },
+  ]
+
   return (
     <motion.div key={project.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      {project.video ? <VideoHero project={project} /> : <ImageHero project={project} />}
+      <ChapterNav chapters={chapters} />
+      <div id="hero">{project.video ? <VideoHero project={project} /> : <ImageHero project={project} />}</div>
       <ProjectBody project={project} next={next} />
     </motion.div>
   )
@@ -142,7 +153,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
   return (
     <>
       {/* Задача / роль — читаются как продолжение истории кейса, не как отдельный блок */}
-      <section className="relative px-6 py-24 sm:px-10 lg:px-16">
+      <section id="brief" className="relative scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1px_1fr]">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-15%' }} transition={{ duration: 0.7 }}>
@@ -191,7 +202,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
       </section>
 
       {/* Галерея — единая, непрерывная лента кейса */}
-      <section ref={galleryRef} className="px-6 pb-8 sm:px-10 lg:px-16">
+      <section id="gallery" ref={galleryRef} className="scroll-mt-24 px-6 pb-8 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px] space-y-16">
           {project.galleryGroups ? (
             project.galleryGroups.map((group, gi) => (
@@ -230,7 +241,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
       </section>
 
       {project.outcome && (
-        <section className="px-6 py-20 sm:px-10 lg:px-16">
+        <section id="outcome" className="scroll-mt-24 px-6 py-20 sm:px-10 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -238,7 +249,9 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
             transition={{ duration: 0.7 }}
             className="mx-auto max-w-[1400px] overflow-hidden rounded-3xl border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] p-8 sm:p-12"
           >
-            <h3 className="font-display text-2xl font-semibold tracking-tight sm:text-4xl">{project.outcome.title}</h3>
+            <RevealText as="h3" className="font-display text-2xl font-semibold tracking-tight sm:text-4xl">
+              {project.outcome.title}
+            </RevealText>
             {project.outcome.stats && (
               <div className="mt-8 flex flex-wrap gap-10 sm:gap-16">
                 {project.outcome.stats.map((s, i) => (
@@ -267,7 +280,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
 
 function NextProjectSection({ next }: { next: PortfolioProject }) {
   return (
-    <section className="border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
+    <section id="next" className="scroll-mt-24 border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <motion.p
           initial={{ opacity: 0 }}

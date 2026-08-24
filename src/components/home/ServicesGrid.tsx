@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Cat, PackageOpen, LayoutDashboard, Film, ArrowUpRight, Sparkles, Wand2 } from 'lucide-react'
 import { ensureGsapPlugins, gsap } from '../../lib/gsap'
+import { useScrollReactiveIcons } from '../../hooks/useScrollReactiveIcons'
 
 const SERVICES = [
   {
@@ -48,6 +49,7 @@ const SERVICES = [
 
 export function ServicesGrid() {
   const ref = useRef<HTMLDivElement>(null)
+  useScrollReactiveIcons(ref, '.reveal-icon')
 
   useEffect(() => {
     ensureGsapPlugins()
@@ -75,10 +77,10 @@ export function ServicesGrid() {
         <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map(({ icon: Icon, title, description, tags, href }) => {
             const cardClassName =
-              'service-card group relative block overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40'
+              'service-card reveal-item group relative block overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40'
             const content = (
               <>
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
+                <div className="reveal-icon mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
                   <Icon size={22} />
                 </div>
                 <h3 className="font-display mb-2 flex items-center gap-2 text-xl font-semibold tracking-tight">

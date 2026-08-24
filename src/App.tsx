@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import { useThemeSync } from './hooks/useThemeSync'
 import { useScrollToTop } from './hooks/useScrollToTop'
 import { SiteLayout } from './components/layout/SiteLayout'
+import { SmoothScrollProvider } from './components/layout/SmoothScrollProvider'
 import { HomePage } from './pages/HomePage'
 import { PortfolioPage } from './pages/PortfolioPage'
 import { ProjectPage } from './pages/ProjectPage'
@@ -32,22 +33,24 @@ function App() {
   }
 
   return (
-    <SiteLayout>
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/portfolio/:id" element={<ProjectPage />} />
-          <Route path="/video-branding" element={<VideoBrandingPage />} />
-          <Route path="/social-media-design" element={<SocialMediaDesignPage />} />
-          <Route path="/ai-visuals" element={<AiVisualsPage />} />
-          <Route path="/pitch-decks" element={<PitchDecksPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </AnimatePresence>
-    </SiteLayout>
+    <SmoothScrollProvider>
+      <SiteLayout>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/portfolio/:id" element={<ProjectPage />} />
+            <Route path="/video-branding" element={<VideoBrandingPage />} />
+            <Route path="/social-media-design" element={<SocialMediaDesignPage />} />
+            <Route path="/ai-visuals" element={<AiVisualsPage />} />
+            <Route path="/pitch-decks" element={<PitchDecksPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </AnimatePresence>
+      </SiteLayout>
+    </SmoothScrollProvider>
   )
 }
 

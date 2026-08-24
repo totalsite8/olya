@@ -6,6 +6,9 @@ import { CaseVideoPlayer } from '../components/portfolio/CaseVideoPlayer'
 import { StickyMediaStory } from '../components/scrolly/StickyMediaStory'
 import { ProcessRail } from '../components/scrolly/ProcessRail'
 import { SectionBackdrop } from '../components/scrolly/SectionBackdrop'
+import { ChapterNav } from '../components/scrolly/ChapterNav'
+import { RevealText } from '../components/scrolly/RevealText'
+import { useScrollReactiveIcons } from '../hooks/useScrollReactiveIcons'
 import { CtaSection } from '../components/home/CtaSection'
 import { ensureGsapPlugins, gsap } from '../lib/gsap'
 import { PROJECTS } from '../data/projects'
@@ -18,6 +21,16 @@ import {
 } from '../data/videoService'
 
 const CASE = PROJECTS.find((p) => p.id === 'unlit-brand-film')!
+
+const CHAPTERS = [
+  { id: 'hero', label: 'Начало' },
+  { id: 'story', label: 'Как рождается ролик' },
+  { id: 'pillars', label: 'Что входит' },
+  { id: 'case', label: 'Кейс UNLIT' },
+  { id: 'process', label: 'Как я работаю' },
+  { id: 'deliverables', label: 'Что вы получаете' },
+  { id: 'faq', label: 'Вопросы' },
+]
 
 export function VideoBrandingPage() {
   const pillarsRef = useRef<HTMLDivElement>(null)
@@ -38,6 +51,7 @@ export function VideoBrandingPage() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <ChapterNav chapters={CHAPTERS} />
       <HeroVideoSection />
       <StorySection />
       <PillarsSection ref={pillarsRef} />
@@ -52,7 +66,7 @@ export function VideoBrandingPage() {
 
 function HeroVideoSection() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-16 pt-32 sm:pb-24">
+    <section id="hero" className="relative flex min-h-[100svh] scroll-mt-24 flex-col justify-end overflow-hidden pb-16 pt-32 sm:pb-24">
       <div className="absolute inset-0 -z-10">
         <img src={CASE.cover} alt="" className="h-full w-full scale-110 object-cover opacity-30 blur-2xl" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/30 via-[var(--color-bg)]/60 to-[var(--color-bg)]" />
@@ -130,7 +144,9 @@ function StorySection() {
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           От идеи до финального кадра
         </p>
-        <h2 className="font-display mb-14 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Как рождается ролик, который продаёт без слов</h2>
+        <RevealText as="h2" className="font-display mb-14 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">
+          Как рождается ролик, который продаёт без слов
+        </RevealText>
 
         <StickyMediaStory
           steps={VIDEO_SERVICE_STORY}
@@ -146,15 +162,18 @@ function StorySection() {
 }
 
 function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
+  useScrollReactiveIcons(ref)
   return (
-    <section className="relative border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="pillars" className="relative scroll-mt-24 border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
       <SectionBackdrop src={CASE.video!.poster} opacity={0.12} />
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Что входит
         </p>
-        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Полный цикл видео-продакшена</h2>
+        <RevealText as="h2" className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">
+          Полный цикл видео-продакшена
+        </RevealText>
 
         <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {VIDEO_SERVICE_PILLARS.map(({ icon: Icon, title, description }) => (
@@ -162,7 +181,7 @@ function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
               key={title}
               className="reveal-item group relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
+              <div className="reveal-icon mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
                 <Icon size={22} />
               </div>
               <h3 className="font-display mb-2 text-xl font-semibold tracking-tight">{title}</h3>
@@ -183,7 +202,9 @@ function CaseSection() {
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Кейс
         </p>
-        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">{CASE.title}</h2>
+        <RevealText as="h2" className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">
+          {CASE.title}
+        </RevealText>
         <p className="mt-4 max-w-xl text-base text-[var(--color-text-muted)] sm:text-lg">{CASE.subtitle}</p>
 
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[420px_1fr] lg:items-start">
@@ -245,13 +266,15 @@ function CaseSection() {
 
 function ProcessSection() {
   return (
-    <section className="relative border-t border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="process" className="relative scroll-mt-24 border-t border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Как я работаю
         </p>
-        <h2 className="font-display mb-16 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Шесть шагов от брифа до готового ролика</h2>
+        <RevealText as="h2" className="font-display mb-16 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">
+          Шесть шагов от брифа до готового ролика
+        </RevealText>
 
         <ProcessRail steps={VIDEO_SERVICE_PROCESS} />
       </div>
@@ -261,7 +284,7 @@ function ProcessSection() {
 
 function DeliverablesSection() {
   return (
-    <section className="relative overflow-hidden border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="deliverables" className="relative scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
       <div className="grain-gradient absolute inset-0" />
       <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 gap-14 lg:grid-cols-2 lg:items-center">
         <div>
@@ -305,7 +328,7 @@ function FaqSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section className="px-6 py-28 sm:px-10 lg:px-16">
+    <section id="faq" className="scroll-mt-24 px-6 py-28 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[900px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />

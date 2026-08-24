@@ -38,6 +38,12 @@ export const VIDEO_SERVICE_STORY = [
     desc: 'Вертикальная раскадровка 9:16 для Reels/TikTok/Stories — с той же композицией и смыслом кадра, что и в мастер-версии.',
     image: IMG.video.unlitPoster,
   },
+  {
+    kicker: 'Результат',
+    title: 'Ролик, который досматривают до конца',
+    desc: 'Кинематографичный темп и продукт-герой в каждом кадре удерживают внимание там, где обычная реклама теряет зрителя за первые три секунды.',
+    image: IMG.video.resultsScreen,
+  },
 ]
 
 export const VIDEO_SERVICE_PILLARS = [

@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { Cat, Palette, PackageOpen, LayoutDashboard, ArrowUpRight, GraduationCap } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ProcessRail } from '../components/scrolly/ProcessRail'
+import { ChapterNav } from '../components/scrolly/ChapterNav'
+import { RevealText } from '../components/scrolly/RevealText'
 import { TIMELINE, EDUCATION } from '../data/timeline'
 
 const SKILLS = [
@@ -18,10 +20,19 @@ const PROCESS = [
   { step: '04', title: 'Передача', desc: 'Отдаю исходники и файлы в удобном формате, в рамках гайдбука и айдентики.' },
 ]
 
+const CHAPTERS = [
+  { id: 'intro', label: 'Обо мне' },
+  { id: 'skills', label: 'Направления' },
+  { id: 'path', label: 'Мой путь' },
+  { id: 'process', label: 'Как я работаю' },
+  { id: 'cta', label: 'Контакт' },
+]
+
 export function AboutPage() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section className="px-6 pb-20 pt-36 sm:px-10 lg:px-16">
+      <ChapterNav chapters={CHAPTERS} />
+      <section id="intro" className="scroll-mt-24 px-6 pb-20 pt-36 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
           <p className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
             <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -40,9 +51,11 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="border-y border-[var(--color-border)] px-6 py-20 sm:px-10 lg:px-16">
+      <section id="skills" className="scroll-mt-24 border-y border-[var(--color-border)] px-6 py-20 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
-          <h2 className="font-display mb-12 text-3xl font-semibold tracking-tight sm:text-5xl">Направления работы</h2>
+          <RevealText as="h2" className="font-display mb-12 text-3xl font-semibold tracking-tight sm:text-5xl">
+            Направления работы
+          </RevealText>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {SKILLS.map(({ icon: Icon, label, value }, i) => (
               <motion.div
@@ -62,9 +75,11 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="px-6 py-24 sm:px-10 lg:px-16">
+      <section id="path" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
-          <h2 className="font-display mb-14 text-3xl font-semibold tracking-tight sm:text-5xl">Мой путь</h2>
+          <RevealText as="h2" className="font-display mb-14 text-3xl font-semibold tracking-tight sm:text-5xl">
+            Мой путь
+          </RevealText>
           <div className="space-y-6">
             <div className="flex flex-col gap-2 border-b border-[var(--color-border)] pb-6 sm:flex-row sm:items-start sm:justify-between">
               <span className="flex shrink-0 items-center gap-2 font-mono-num text-sm text-[var(--color-text-muted)] sm:w-52">
@@ -105,14 +120,16 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-[var(--color-border)] px-6 py-24 sm:px-10 lg:px-16">
+      <section id="process" className="scroll-mt-24 border-t border-[var(--color-border)] px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
-          <h2 className="font-display mb-16 text-3xl font-semibold tracking-tight sm:text-5xl">Как я работаю</h2>
+          <RevealText as="h2" className="font-display mb-16 text-3xl font-semibold tracking-tight sm:text-5xl">
+            Как я работаю
+          </RevealText>
           <ProcessRail steps={PROCESS} />
         </div>
       </section>
 
-      <section className="border-t border-[var(--color-border)] px-6 py-20 sm:px-10 lg:px-16">
+      <section id="cta" className="scroll-mt-24 border-t border-[var(--color-border)] px-6 py-20 sm:px-10 lg:px-16">
         <div className="mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-8 sm:flex-row sm:items-center">
           <h2 className="font-display max-w-xl text-3xl font-semibold tracking-tight sm:text-5xl">Хотите обсудить проект?</h2>
           <Link
