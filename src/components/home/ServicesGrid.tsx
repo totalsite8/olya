@@ -1,0 +1,82 @@
+import { useEffect, useRef } from 'react'
+import { Image, Sparkles, Video, Presentation } from 'lucide-react'
+import { ensureGsapPlugins, gsap } from '../../lib/gsap'
+
+const SERVICES = [
+  {
+    icon: Image,
+    title: 'Дизайн',
+    description: 'Посты, баннеры, обложки, сторис и карточки товара — визуальная система, которая держит бренд узнаваемым в любом формате.',
+    tags: ['Посты', 'Баннеры', 'Обложки', 'Сторис'],
+  },
+  {
+    icon: Sparkles,
+    title: 'Нейрогенерации',
+    description: 'От статичных AI-изображений до говорящих аватаров и клонов голоса — генерация, доведённая до продакшн-качества.',
+    tags: ['AI-изображения', 'Аватары', 'Клон голоса', 'LoRA'],
+  },
+  {
+    icon: Video,
+    title: 'Видео и анимация',
+    description: 'Explainer-ролики, моушн-дизайн и сложная 2D/3D анимация — с полным циклом от сценария до финальной озвучки.',
+    tags: ['2D-анимация', 'Сценарий', 'Озвучка', 'Монтаж'],
+  },
+  {
+    icon: Presentation,
+    title: 'Презентации',
+    description: 'Питч-деки, инвесторские презентации и корпоративные шаблоны — от структуры и нарратива до финальной инфографики.',
+    tags: ['Питч-дек', 'Инфографика', 'Шаблоны', 'Редизайн'],
+  },
+]
+
+export function ServicesGrid() {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    ensureGsapPlugins()
+    const container = ref.current
+    if (!container) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        container.querySelectorAll('.service-card'),
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
+      )
+    }, container)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section className="relative px-6 py-28 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+          <span className="h-px w-8 bg-[var(--color-accent)]" />
+          Что я делаю
+        </p>
+        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Четыре направления, один результат</h2>
+
+        <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {SERVICES.map(({ icon: Icon, title, description, tags }) => (
+            <div
+              key={title}
+              className="service-card group relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40"
+            >
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
+                <Icon size={22} />
+              </div>
+              <h3 className="font-display mb-2 text-xl font-semibold tracking-tight">{title}</h3>
+              <p className="mb-5 text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-[var(--color-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

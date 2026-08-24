@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+}
+
+:root {
+  --bg: #0a0a0d;
+  --bg-soft: #101014;
+  --surface: #16161b;
+  --surface-hover: #1e1e25;
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f7;
+  --text-muted: #9a99a5;
+  --accent: #b48cff;
+  --accent-soft: rgba(180, 140, 255, 0.14);
+  --accent-contrast: #0a0a0d;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f5f2;
+  --bg-soft: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #efedf8;
+  --border: rgba(10, 10, 13, 0.1);
+  --text: #0e0e11;
+  --text-muted: #605e6b;
+  --accent: #6d28d9;
+  --accent-soft: rgba(109, 40, 217, 0.1);
+  --accent-contrast: #ffffff;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Кастомный курсор-компаньон (десктоп) */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--text);
+  pointer-events: none;
+  z-index: 200;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--text);
+  pointer-events: none;
+  z-index: 200;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px var(--text);
+  color: transparent;
+}
+
+.grain-gradient {
+  background-image:
+    radial-gradient(circle at 20% 20%, var(--accent-soft) 0%, transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+}

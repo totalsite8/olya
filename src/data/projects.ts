@@ -1,0 +1,88 @@
+import type { PortfolioProject } from '../types/portfolio'
+
+export const PROJECTS: PortfolioProject[] = [
+  {
+    id: 'aurora',
+    title: 'Aurora',
+    subtitle: 'Ребрендинг соцсетей для beauty-лейбла',
+    category: 'design',
+    categoryLabel: 'Дизайн',
+    year: '2026',
+    tags: ['Посты', 'Сторис', 'Карточки товара'],
+    cover: '/images/project-aurora.jpg',
+    description:
+      'Полная визуальная система для запуска нового бьюти-бренда: сетка постов, сторис-шаблоны и карточки товара, которые работают как единая лента. Мягкий градиентный свет и стеклянные текстуры вместо плоских баннеров.',
+    services: ['Пост для соцсетей', 'Сторис', 'Карточка товара'],
+    accent: '#a78bfa',
+  },
+  {
+    id: 'neon-pulse',
+    title: 'Neon Pulse',
+    subtitle: 'AI-видео кампания для tech-стартапа',
+    category: 'neuro',
+    categoryLabel: 'Нейрогенерации',
+    year: '2026',
+    tags: ['Нейровидео', 'Говорящий аватар', 'Озвучка'],
+    cover: '/images/project-neon-pulse.jpg',
+    description:
+      'Серия коротких AI-роликов и говорящий аватар-презентер для запуска продукта: от статичных кадров до готовых клипов с озвучкой на трёх языках. Полный цикл — от промпта до финального монтажа.',
+    services: ['Видео-генерация', 'Говорящий аватар', 'Озвучка / клон голоса'],
+    accent: '#38bdf8',
+  },
+  {
+    id: 'vertex-motion',
+    title: 'Vertex Motion',
+    subtitle: 'Объясняющий ролик для finance-продукта',
+    category: 'video',
+    categoryLabel: 'Видео и анимация',
+    year: '2025',
+    tags: ['Сложная анимация', 'Сценарий', 'Озвучка'],
+    cover: '/images/project-vertex-motion.jpg',
+    description:
+      'Полутораминутный explainer с несколькими персонажами, сменой сцен и 3D-элементами — от сценария и раскадровки до финальной анимации и дикторской озвучки.',
+    services: ['Сложная анимация', 'Сценарий / раскадровка', 'Озвучка к видео'],
+    accent: '#fb923c',
+  },
+  {
+    id: 'quantum-deck',
+    title: 'Quantum Deck',
+    subtitle: 'Питч-дек для раунда инвестиций',
+    category: 'presentation',
+    categoryLabel: 'Презентации',
+    year: '2025',
+    tags: ['Презентация с нуля', 'Инфографика'],
+    cover: '/images/project-quantum-deck.jpg',
+    description:
+      'Инвесторская презентация на 18 слайдов: нарратив, структура сторителлинга, авторская инфографика и единая система шаблонов, которую команда использует до сих пор.',
+    services: ['Презентация с нуля', 'Слайды с инфографикой и схемами'],
+    accent: '#4ade80',
+  },
+  {
+    id: 'social-drift',
+    title: 'Social Drift',
+    subtitle: 'Контент-система для lifestyle-бренда',
+    category: 'design',
+    categoryLabel: 'Дизайн',
+    year: '2025',
+    tags: ['Баннеры', 'Обложки', 'Иконки'],
+    cover: '/images/project-social-drift.jpg',
+    description:
+      'Модульная система баннеров и обложек, которая масштабируется на любые форматы рекламных кампаний без потери узнаваемости бренда.',
+    services: ['Баннер', 'Обложка', 'Иконка'],
+    accent: '#f472b6',
+  },
+  {
+    id: 'synth-avatar',
+    title: 'Synth Avatar',
+    subtitle: 'Консистентный AI-персонаж для бренда',
+    category: 'neuro',
+    categoryLabel: 'Нейрогенерации',
+    year: '2026',
+    tags: ['Консистентный персонаж', 'LoRA', 'Апскейл'],
+    cover: '/images/project-synth-avatar.jpg',
+    description:
+      'Обучение кастомной модели на фирменном стиле и разработка консистентного AI-персонажа в 10 ракурсах — от чернового рендера до апскейла в 4K.',
+    services: ['Кастомная LoRA', 'Консистентный персонаж', 'Апскейл изображения до 4K'],
+    accent: '#818cf8',
+  },
+]
