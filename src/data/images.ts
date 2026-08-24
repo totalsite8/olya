@@ -91,4 +91,16 @@ export const IMG = {
   footer: {
     background: '/images/06_footer/footer-background-abstract.webp',
   },
+  video: {
+    unlitPoster: '/images/07_video/unlit-poster.webp',
+    unlitFrame01: '/images/07_video/unlit-frame-01.webp',
+    unlitFrame02: '/images/07_video/unlit-frame-02.webp',
+    unlitFrame03: '/images/07_video/unlit-frame-03.webp',
+    unlitFrame04: '/images/07_video/unlit-frame-04.webp',
+    unlitFrame05: '/images/07_video/unlit-frame-05.webp',
+  },
+} as const
+
+export const VIDEOS = {
+  unlitBrandFilm: '/videos/unlit-brand-film.mp4',
 } as const

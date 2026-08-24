@@ -7,6 +7,14 @@ import { CONTACTS } from '../../data/contacts'
 
 const HERO_CARDS = [
   {
+    id: 'video-branding',
+    href: '/video-branding',
+    title: 'Видео и\nайдентика',
+    subtitle: 'Рекламные ролики и motion-гайд бренда под ключ',
+    image: IMG.video.unlitPoster,
+    tone: 'dark' as const,
+  },
+  {
     id: 'alfa-mascots',
     title: 'Маскоты\nдля корпоративного обучения',
     subtitle: 'АльфаСтрахование-Жизнь — персонажи, сценарии, анимация',
@@ -86,7 +94,7 @@ export function HeroSection() {
           </motion.p>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:gap-4 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:gap-4 lg:grid-cols-5">
           {HERO_CARDS.map((card, i) => (
             <motion.div
               key={card.id}
@@ -95,7 +103,7 @@ export function HeroSection() {
               transition={{ delay: 0.5 + i * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link
-                to={`/portfolio/${card.id}`}
+                to={card.href ?? `/portfolio/${card.id}`}
                 data-cursor-hover
                 className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-3xl p-5 sm:p-6"
               >

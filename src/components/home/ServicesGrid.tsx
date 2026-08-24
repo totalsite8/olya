@@ -1,8 +1,16 @@
 import { useEffect, useRef } from 'react'
-import { Cat, Palette, PackageOpen, LayoutDashboard } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Cat, Palette, PackageOpen, LayoutDashboard, Film, ArrowUpRight } from 'lucide-react'
 import { ensureGsapPlugins, gsap } from '../../lib/gsap'
 
 const SERVICES = [
+  {
+    icon: Film,
+    title: 'Видео и айдентика',
+    description: 'Рекламные ролики, AI-продакшн и motion-гайд бренда под ключ — от идеи до адаптации под все форматы.',
+    tags: ['AI-видео', 'Motion-гайд', '9:16 / 16:9'],
+    href: '/video-branding',
+  },
   {
     icon: Cat,
     title: 'Маскоты и персонажи',
@@ -40,7 +48,7 @@ export function ServicesGrid() {
       gsap.fromTo(
         container.querySelectorAll('.service-card'),
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
       )
     }, container)
     return () => ctx.revert()
@@ -53,28 +61,41 @@ export function ServicesGrid() {
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Что я делаю
         </p>
-        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Четыре направления, один результат</h2>
+        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Пять направлений, один результат</h2>
 
-        <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map(({ icon: Icon, title, description, tags }) => (
-            <div
-              key={title}
-              className="service-card group relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40"
-            >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
-                <Icon size={22} />
+        <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map(({ icon: Icon, title, description, tags, href }) => {
+            const cardClassName =
+              'service-card group relative block overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40'
+            const content = (
+              <>
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
+                  <Icon size={22} />
+                </div>
+                <h3 className="font-display mb-2 flex items-center gap-2 text-xl font-semibold tracking-tight">
+                  {title}
+                  {href && <ArrowUpRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
+                </h3>
+                <p className="mb-5 text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {tags.map((tag) => (
+                    <span key={tag} className="rounded-full border border-[var(--color-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)]">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )
+            return href ? (
+              <Link key={title} to={href} data-cursor-hover className={`${cardClassName} cursor-pointer`}>
+                {content}
+              </Link>
+            ) : (
+              <div key={title} className={cardClassName}>
+                {content}
               </div>
-              <h3 className="font-display mb-2 text-xl font-semibold tracking-tight">{title}</h3>
-              <p className="mb-5 text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p>
-              <div className="flex flex-wrap gap-1.5">
-                {tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-[var(--color-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)]">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

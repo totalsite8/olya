@@ -8,6 +8,7 @@ import { ProjectPage } from './pages/ProjectPage'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
 import { CalculatorPage } from './pages/CalculatorPage'
+import { VideoBrandingPage } from './pages/VideoBrandingPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/portfolio/:id" element={<ProjectPage />} />
+          <Route path="/video-branding" element={<VideoBrandingPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />

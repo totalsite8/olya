@@ -8,6 +8,7 @@ import { CONTACTS } from '../../data/contacts'
 const NAV_LINKS = [
   { to: '/', label: 'Главная' },
   { to: '/portfolio', label: 'Портфолио' },
+  { to: '/video-branding', label: 'Видео и айдентика' },
   { to: '/about', label: 'Обо мне' },
   { to: '/contact', label: 'Контакты' },
 ]

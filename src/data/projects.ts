@@ -1,7 +1,35 @@
-import { IMG } from './images'
+import { IMG, VIDEOS } from './images'
 import type { PortfolioProject } from '../types/portfolio'
 
 export const PROJECTS: PortfolioProject[] = [
+  {
+    id: 'unlit-brand-film',
+    title: 'Рекламный ролик и видео-айдентика «UNLIT»',
+    subtitle: 'Продуктовый AI-фильм для премиальной термальной воды',
+    category: 'video',
+    categoryLabel: 'Видео и айдентика',
+    year: '2026',
+    tags: ['AI-видео', 'Продуктовая реклама', '9:16', 'Motion-гайд'],
+    cover: IMG.video.unlitPoster,
+    task:
+      'Придумать и снять рекламный ролик для запуска концептуального бренда термальной воды «UNLIT» — премиальный продукт без истории и узнаваемости на рынке, где визуал должен продавать саму идею «нетронутой глубины» с первого кадра, без единого слова закадрового текста.',
+    role: [
+      'Разработка визуальной концепции и сторибординга: продукт как единственный герой кадра.',
+      'AI-генерация и композитинг всех сцен — от макросъёмки капель до анимации существа как символа нетронутой природы.',
+      'Motion-гайд бренда: свет, скорость движения камеры, цветовая температура — единые для всех будущих роликов.',
+      'Адаптация под вертикальный формат 9:16 для Reels/TikTok/Stories с раскадровкой по бьютам.',
+      'Финальный монтаж, цветокоррекция и саунд-дизайн.',
+    ],
+    gallery: [
+      IMG.video.unlitPoster,
+      IMG.video.unlitFrame04,
+      IMG.video.unlitFrame01,
+      IMG.video.unlitFrame03,
+      IMG.video.unlitFrame02,
+      IMG.video.unlitFrame05,
+    ],
+    video: { src: VIDEOS.unlitBrandFilm, poster: IMG.video.unlitPoster, aspect: '9:16' },
+  },
   {
     id: 'alfa-mascots',
     title: 'Маскоты для «Альфа Страхование — Жизнь»',

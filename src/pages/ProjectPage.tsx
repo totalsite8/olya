@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowUpRight, Target, UserCog, ShieldAlert } from 'lucide-react'
 import { PROJECTS } from '../data/projects'
+import { CaseVideoPlayer } from '../components/portfolio/CaseVideoPlayer'
+import type { PortfolioProject } from '../types/portfolio'
 
 export function ProjectPage() {
   const { id } = useParams<{ id: string }>()
@@ -18,27 +21,81 @@ export function ProjectPage() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section className="relative h-[70vh] min-h-[480px] overflow-hidden">
-        <img src={project.cover} alt={project.title} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/20 to-black/10" />
+      {project.video ? <VideoHero project={project} /> : <ImageHero project={project} />}
+      <ProjectBody project={project} next={next} />
+    </motion.div>
+  )
+}
+
+function VideoHero({ project }: { project: PortfolioProject }) {
+  if (!project.video) return null
+  return (
+    <section className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+      <div className="absolute inset-0 -z-10">
+        <img src={project.cover} alt="" className="h-full w-full scale-110 object-cover opacity-25 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/40 via-[var(--color-bg)]/70 to-[var(--color-bg)]" />
+      </div>
+
+      <div className="mx-auto max-w-[1400px] px-6 sm:px-10 lg:px-16">
         <Link
           to="/portfolio"
           data-cursor-hover
-          className="absolute left-6 top-28 z-10 flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white backdrop-blur-md sm:left-10 lg:left-16"
+          className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-4 py-2 text-sm font-medium backdrop-blur-md"
         >
           <ArrowLeft size={15} /> Портфолио
         </Link>
-        <div className="absolute inset-x-0 bottom-0 px-6 pb-12 sm:px-10 lg:px-16">
-          <div className="mx-auto max-w-[1400px]">
-            <span className="mb-3 inline-block rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_460px]">
+          <div>
+            <span className="mb-3 inline-block rounded-full border border-[var(--color-border)] px-3 py-1 text-xs font-medium text-[var(--color-text-muted)]">
               {project.categoryLabel} · {project.year}
             </span>
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-6xl">{project.title}</h1>
-            <p className="mt-2 max-w-xl text-base text-white/70 sm:text-lg">{project.subtitle}</p>
+            <h1 className="font-display text-4xl font-semibold leading-[0.95] tracking-tight sm:text-6xl">{project.title}</h1>
+            <p className="mt-4 max-w-xl text-base text-[var(--color-text-muted)] sm:text-lg">{project.subtitle}</p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {project.tags.map((t) => (
+                <span key={t} className="rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-text-muted)]">
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
 
+          <CaseVideoPlayer src={project.video.src} poster={project.video.poster} aspect={project.video.aspect} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ImageHero({ project }: { project: PortfolioProject }) {
+  return (
+    <section className="relative h-[70vh] min-h-[480px] overflow-hidden">
+      <img src={project.cover} alt={project.title} className="h-full w-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/20 to-black/10" />
+      <Link
+        to="/portfolio"
+        data-cursor-hover
+        className="absolute left-6 top-28 z-10 flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-4 py-2 text-sm font-medium text-white backdrop-blur-md sm:left-10 lg:left-16"
+      >
+        <ArrowLeft size={15} /> Портфолио
+      </Link>
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-12 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1400px]">
+          <span className="mb-3 inline-block rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+            {project.categoryLabel} · {project.year}
+          </span>
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-6xl">{project.title}</h1>
+          <p className="mt-2 max-w-xl text-base text-white/70 sm:text-lg">{project.subtitle}</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProjectBody({ project, next }: { project: PortfolioProject; next: PortfolioProject | null }): ReactNode {
+  return (
+    <>
       <section className="px-6 py-20 sm:px-10 lg:px-16">
         <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-2">
           <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 sm:p-8">
@@ -145,6 +202,6 @@ export function ProjectPage() {
           </div>
         </section>
       )}
-    </motion.div>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-export type ProjectCategory = 'mascots' | 'social' | 'branding' | 'presentations'
+export type ProjectCategory = 'mascots' | 'social' | 'branding' | 'presentations' | 'video'
 
 export interface PortfolioProject {
   id: string
@@ -15,6 +15,7 @@ export interface PortfolioProject {
   outcome?: { title: string; stats?: { value: string; label: string }[]; footnote?: string }
   gallery: string[]
   galleryGroups?: { title: string; images: string[] }[]
+  video?: { src: string; poster: string; aspect: '9:16' | '16:9' | '1:1' }
 }
 
 export interface TimelineEntry {

@@ -7,6 +7,7 @@ import type { ProjectCategory } from '../types/portfolio'
 
 const FILTERS: { id: ProjectCategory | 'all'; label: string }[] = [
   { id: 'all', label: 'Все' },
+  { id: 'video', label: 'Видео' },
   { id: 'mascots', label: 'Маскоты' },
   { id: 'social', label: 'Соц.сети' },
   { id: 'branding', label: 'Брендинг' },

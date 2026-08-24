@@ -117,32 +117,28 @@ h1, h2, h3, h4, .font-display {
   font-variant-numeric: tabular-nums;
 }
 
-/* Кастомный курсор-компаньон (десктоп) */
-.cursor-dot {
+/* Обычный системный курсор остаётся видимым. Лёгкое магнитное свечение
+   мягко следует за курсором по всему полю сайта, не заменяя сам курсор. */
+.cursor-field {
   position: fixed;
   top: 0;
   left: 0;
-  width: 10px;
-  height: 10px;
+  width: 560px;
+  height: 560px;
+  margin-left: -280px;
+  margin-top: -280px;
   border-radius: 999px;
-  background: var(--text);
   pointer-events: none;
-  z-index: 200;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
+  z-index: 1;
+  will-change: transform;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 62%);
+  opacity: 0.9;
+  mix-blend-mode: var(--cursor-field-blend, normal);
 }
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  border: 1px solid var(--text);
-  pointer-events: none;
-  z-index: 200;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
+
+:root[data-theme='light'] .cursor-field {
+  --cursor-field-blend: multiply;
+  opacity: 0.6;
 }
 
 @keyframes marquee {
