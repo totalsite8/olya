@@ -126,6 +126,18 @@ export function HeroSection() {
           ))}
         </div>
       </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4 }}
+        className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center text-[var(--color-text-muted)]"
+      >
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }} className="flex flex-col items-center gap-1">
+          <span className="text-[10px] font-medium uppercase tracking-[0.25em]">Листайте</span>
+          <ArrowRight size={14} className="rotate-90" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

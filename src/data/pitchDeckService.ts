@@ -1,4 +1,26 @@
 import { BookOpen, BarChart3, Palette, FileStack, ShieldCheck, Presentation } from 'lucide-react'
+import { IMG } from './images'
+
+export const PITCH_SERVICE_STORY = [
+  {
+    kicker: 'Шаг 01',
+    title: 'Сначала история, потом слайды',
+    desc: 'Проблема → решение → рынок → цифры → команда. Структура нарратива собирается до того, как открыт редактор — иначе дизайн лечит симптомы, а не суть.',
+    image: IMG.pitch.narrativeBoard,
+  },
+  {
+    kicker: 'Шаг 02',
+    title: 'Три секунды на слайд',
+    desc: 'Инвестор не читает — сканирует. Каждый слайд закрывает одну мысль: заголовок, один график, один вывод. Никаких простыней текста.',
+    image: IMG.pitch.slidesGrid,
+  },
+  {
+    kicker: 'Шаг 03',
+    title: 'Обложка решает, откроют ли дальше',
+    desc: 'Титульный слайд — это первое впечатление за почтовым вложением до звонка. Дизайн-система заявляет уровень компании ещё до первого слова.',
+    image: IMG.pitch.coverSlide,
+  },
+]
 
 export const PITCH_SERVICE_PILLARS = [
   {

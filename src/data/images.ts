@@ -98,22 +98,31 @@ export const IMG = {
     unlitFrame03: '/images/07_video/unlit-frame-03.webp',
     unlitFrame04: '/images/07_video/unlit-frame-04.webp',
     unlitFrame05: '/images/07_video/unlit-frame-05.webp',
+    storyboard: '/images/07_video/unlit-storyboard-frames.jpg',
+    motionGuide: '/images/07_video/unlit-motion-guide.jpg',
   },
   social: {
     heroBg: '/images/08_social/social-hero-bg.jpg',
     caseCover: '/images/08_social/social-case-cover.jpg',
     grid: '/images/08_social/social-grid-01.jpg',
     storyMockup: '/images/08_social/social-story-mockup.jpg',
+    guidebook: '/images/08_social/social-guidebook-spread.jpg',
+    calendar: '/images/08_social/social-content-calendar.jpg',
   },
   aiVisuals: {
     heroBg: '/images/09_ai/ai-hero-bg.jpg',
     caseCover: '/images/09_ai/ai-case-cover.jpg',
     characterGrid: '/images/09_ai/ai-character-grid.jpg',
     productRender: '/images/09_ai/ai-product-render.jpg',
+    modelTraining: '/images/09_ai/ai-model-training.jpg',
+    scalingGrid: '/images/09_ai/ai-scaling-grid.jpg',
   },
   pitch: {
     heroBg: '/images/10_pitch/pitch-hero-bg.jpg',
     caseCover: '/images/10_pitch/pitch-case-cover.jpg',
+    coverSlide: '/images/10_pitch/pitch-cover-slide.jpg',
+    slidesGrid: '/images/10_pitch/pitch-slides-grid.jpg',
+    narrativeBoard: '/images/10_pitch/pitch-narrative-board.jpg',
   },
 } as const
 

@@ -3,39 +3,46 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Check, ChevronDown, Play } from 'lucide-react'
 import { CaseVideoPlayer } from '../components/portfolio/CaseVideoPlayer'
+import { StickyMediaStory } from '../components/scrolly/StickyMediaStory'
+import { ProcessRail } from '../components/scrolly/ProcessRail'
+import { SectionBackdrop } from '../components/scrolly/SectionBackdrop'
 import { CtaSection } from '../components/home/CtaSection'
 import { ensureGsapPlugins, gsap } from '../lib/gsap'
 import { PROJECTS } from '../data/projects'
-import { VIDEO_SERVICE_PILLARS, VIDEO_SERVICE_PROCESS, VIDEO_SERVICE_DELIVERABLES, VIDEO_SERVICE_FAQ } from '../data/videoService'
+import {
+  VIDEO_SERVICE_PILLARS,
+  VIDEO_SERVICE_PROCESS,
+  VIDEO_SERVICE_DELIVERABLES,
+  VIDEO_SERVICE_FAQ,
+  VIDEO_SERVICE_STORY,
+} from '../data/videoService'
 
 const CASE = PROJECTS.find((p) => p.id === 'unlit-brand-film')!
 
 export function VideoBrandingPage() {
   const pillarsRef = useRef<HTMLDivElement>(null)
-  const processRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     ensureGsapPlugins()
-    const ctxs = [pillarsRef, processRef]
-      .filter((r) => r.current)
-      .map((r) =>
-        gsap.context(() => {
-          gsap.fromTo(
-            r.current!.querySelectorAll('.reveal-item'),
-            { opacity: 0, y: 40 },
-            { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: r.current, start: 'top 82%', once: true } },
-          )
-        }, r.current!),
+    const container = pillarsRef.current
+    if (!container) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        container.querySelectorAll('.reveal-item'),
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
       )
-    return () => ctxs.forEach((c) => c.revert())
+    }, container)
+    return () => ctx.revert()
   }, [])
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <HeroVideoSection />
+      <StorySection />
       <PillarsSection ref={pillarsRef} />
       <CaseSection />
-      <ProcessSection ref={processRef} />
+      <ProcessSection />
       <DeliverablesSection />
       <FaqSection />
       <CtaSection />
@@ -95,8 +102,8 @@ function HeroVideoSection() {
               Обсудить проект
               <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
-            <a href="#case" data-cursor-hover className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]">
-              <Play size={14} /> Смотреть кейс
+            <a href="#story" data-cursor-hover className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]">
+              <Play size={14} /> Как рождается ролик
             </a>
           </motion.div>
         </div>
@@ -115,9 +122,33 @@ function HeroVideoSection() {
   )
 }
 
+function StorySection() {
+  return (
+    <section id="story" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+          <span className="h-px w-8 bg-[var(--color-accent)]" />
+          От идеи до финального кадра
+        </p>
+        <h2 className="font-display mb-14 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Как рождается ролик, который продаёт без слов</h2>
+
+        <StickyMediaStory
+          steps={VIDEO_SERVICE_STORY}
+          renderMedia={(_, step) => (
+            <div className="aspect-[3/4] w-full max-w-[420px] overflow-hidden rounded-3xl border border-[var(--color-border)] shadow-2xl">
+              <img src={step.image} alt={step.title} className="h-full w-full object-cover" />
+            </div>
+          )}
+        />
+      </div>
+    </section>
+  )
+}
+
 function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
   return (
     <section className="relative border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+      <SectionBackdrop src={CASE.video!.poster} opacity={0.12} />
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -212,25 +243,17 @@ function CaseSection() {
   )
 }
 
-function ProcessSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
+function ProcessSection() {
   return (
-    <section className="border-t border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section className="relative border-t border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Как я работаю
         </p>
-        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Шесть шагов от брифа до готового ролика</h2>
+        <h2 className="font-display mb-16 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Шесть шагов от брифа до готового ролика</h2>
 
-        <div ref={ref} className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {VIDEO_SERVICE_PROCESS.map((item) => (
-            <div key={item.step} className="reveal-item">
-              <span className="font-mono-num text-sm text-[var(--color-accent)]">{item.step}</span>
-              <h3 className="font-display mt-3 text-xl font-semibold tracking-tight">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{item.desc}</p>
-            </div>
-          ))}
-        </div>
+        <ProcessRail steps={VIDEO_SERVICE_PROCESS} />
       </div>
     </section>
   )

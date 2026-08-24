@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowUpRight, Target, UserCog, ShieldAlert } from 'lucide-react'
 import { PROJECTS } from '../data/projects'
 import { CaseVideoPlayer } from '../components/portfolio/CaseVideoPlayer'
+import { ensureGsapPlugins, gsap } from '../lib/gsap'
 import type { PortfolioProject } from '../types/portfolio'
 
 export function ProjectPage() {
@@ -20,7 +21,7 @@ export function ProjectPage() {
   if (!project) return <Navigate to="/portfolio" replace />
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <motion.div key={project.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {project.video ? <VideoHero project={project} /> : <ImageHero project={project} />}
       <ProjectBody project={project} next={next} />
     </motion.div>
@@ -69,9 +70,26 @@ function VideoHero({ project }: { project: PortfolioProject }) {
 }
 
 function ImageHero({ project }: { project: PortfolioProject }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    ensureGsapPlugins()
+    const el = ref.current
+    const img = el?.querySelector<HTMLElement>('.hero-image')
+    if (!el || !img) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        img,
+        { scale: 1.15, yPercent: -4 },
+        { scale: 1, yPercent: 6, ease: 'none', scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: 0.6 } },
+      )
+    }, el)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section className="relative h-[70vh] min-h-[480px] overflow-hidden">
-      <img src={project.cover} alt={project.title} className="h-full w-full object-cover" />
+    <section ref={ref} className="relative h-[75vh] min-h-[520px] overflow-hidden">
+      <img src={project.cover} alt={project.title} className="hero-image h-full w-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-black/20 to-black/10" />
       <Link
         to="/portfolio"
@@ -94,114 +112,191 @@ function ImageHero({ project }: { project: PortfolioProject }) {
 }
 
 function ProjectBody({ project, next }: { project: PortfolioProject; next: PortfolioProject | null }): ReactNode {
+  const galleryRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    ensureGsapPlugins()
+    const container = galleryRef.current
+    if (!container) return
+    const ctx = gsap.context(() => {
+      const tiles = container.querySelectorAll<HTMLElement>('.case-tile')
+      tiles.forEach((tile) => {
+        const img = tile.querySelector<HTMLElement>('img')
+        gsap.fromTo(
+          tile,
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', scrollTrigger: { trigger: tile, start: 'top 92%', once: true } },
+        )
+        if (img) {
+          gsap.fromTo(
+            img,
+            { scale: 1.18 },
+            { scale: 1, ease: 'none', scrollTrigger: { trigger: tile, start: 'top bottom', end: 'bottom top', scrub: 0.7 } },
+          )
+        }
+      })
+    }, container)
+    return () => ctx.revert()
+  }, [project.id])
+
   return (
     <>
-      <section className="px-6 py-20 sm:px-10 lg:px-16">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-2">
-          <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 sm:p-8">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-              <Target size={13} /> Задача
-            </span>
-            <p className="text-base leading-relaxed text-[var(--color-text-muted)]">{project.task}</p>
+      {/* Задача / роль — читаются как продолжение истории кейса, не как отдельный блок */}
+      <section className="relative px-6 py-24 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1px_1fr]">
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-15%' }} transition={{ duration: 0.7 }}>
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
+                <Target size={13} /> Задача
+              </span>
+              <p className="text-lg leading-relaxed text-[var(--color-text)] sm:text-xl">{project.task}</p>
+            </motion.div>
+
+            <div className="hidden bg-[var(--color-border)] lg:block" />
+
+            <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-15%' }} transition={{ duration: 0.7, delay: 0.1 }}>
+              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
+                <UserCog size={13} /> Моя роль
+              </span>
+              <ul className="space-y-3">
+                {project.role.map((r, i) => (
+                  <motion.li
+                    key={r}
+                    initial={{ opacity: 0, x: 16 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.15 + i * 0.06 }}
+                    className="flex gap-2.5 text-base leading-relaxed text-[var(--color-text-muted)]"
+                  >
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
+                    {r}
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
-          <div className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 sm:p-8">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
-              <UserCog size={13} /> Моя роль
-            </span>
-            <ul className="space-y-2">
-              {project.role.map((r) => (
-                <li key={r} className="flex gap-2.5 text-base leading-relaxed text-[var(--color-text-muted)]">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
-                  {r}
-                </li>
-              ))}
-            </ul>
-          </div>
+
+          {project.nda && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="mt-10 flex items-start gap-3 rounded-2xl border border-dashed border-[var(--color-border)] p-5 text-sm text-[var(--color-text-muted)]"
+            >
+              <ShieldAlert size={16} className="mt-0.5 shrink-0" />
+              {project.nda}
+            </motion.div>
+          )}
         </div>
+      </section>
 
-        {project.nda && (
-          <div className="mx-auto mt-6 flex max-w-[1400px] items-start gap-3 rounded-2xl border border-dashed border-[var(--color-border)] p-5 text-sm text-[var(--color-text-muted)]">
-            <ShieldAlert size={16} className="mt-0.5 shrink-0" />
-            {project.nda}
-          </div>
-        )}
-
-        {project.galleryGroups ? (
-          <div className="mx-auto mt-14 max-w-[1400px] space-y-12">
-            {project.galleryGroups.map((group) => (
+      {/* Галерея — единая, непрерывная лента кейса */}
+      <section ref={galleryRef} className="px-6 pb-8 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1400px] space-y-16">
+          {project.galleryGroups ? (
+            project.galleryGroups.map((group, gi) => (
               <div key={group.title}>
-                <h3 className="mb-5 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">{group.title}</h3>
+                <motion.h3
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="mb-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]"
+                >
+                  <span className="font-mono-num text-[var(--color-accent)]">{String(gi + 1).padStart(2, '0')}</span>
+                  {group.title}
+                </motion.h3>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                   {group.images.map((src, i) => (
-                    <motion.div
+                    <div
                       key={src + i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: (i % 4) * 0.06 }}
-                      className={`overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
+                      className={`case-tile relative overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
                     >
                       <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="mx-auto mt-14 grid max-w-[1400px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {project.gallery.map((src, i) => (
-              <motion.div
-                key={src + i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 4) * 0.06 }}
-                className={`overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
-              >
-                <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
-              </motion.div>
-            ))}
-          </div>
-        )}
+            ))
+          ) : (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {project.gallery.map((src, i) => (
+                <div key={src + i} className={`case-tile relative overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
+                  <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
 
-        {project.outcome && (
-          <div className="mx-auto mt-14 max-w-[1400px] rounded-3xl border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] p-8 sm:p-10">
-            <h3 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">{project.outcome.title}</h3>
+      {project.outcome && (
+        <section className="px-6 py-20 sm:px-10 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.7 }}
+            className="mx-auto max-w-[1400px] overflow-hidden rounded-3xl border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] p-8 sm:p-12"
+          >
+            <h3 className="font-display text-2xl font-semibold tracking-tight sm:text-4xl">{project.outcome.title}</h3>
             {project.outcome.stats && (
-              <div className="mt-6 flex flex-wrap gap-10">
-                {project.outcome.stats.map((s) => (
-                  <div key={s.label}>
-                    <p className="font-mono-num text-4xl font-bold text-[var(--color-accent)]">{s.value}</p>
-                    <p className="mt-1 max-w-[200px] text-sm text-[var(--color-text-muted)]">{s.label}</p>
-                  </div>
+              <div className="mt-8 flex flex-wrap gap-10 sm:gap-16">
+                {project.outcome.stats.map((s, i) => (
+                  <motion.div
+                    key={s.label}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <p className="font-mono-num text-4xl font-bold text-[var(--color-accent)] sm:text-5xl">{s.value}</p>
+                    <p className="mt-2 max-w-[220px] text-sm text-[var(--color-text-muted)]">{s.label}</p>
+                  </motion.div>
                 ))}
               </div>
             )}
-            {project.outcome.footnote && <p className="mt-6 text-sm text-[var(--color-text-muted)]">{project.outcome.footnote}</p>}
-          </div>
-        )}
-      </section>
-
-      {next && (
-        <section className="border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
-          <div className="mx-auto max-w-[1400px]">
-            <p className="mb-6 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">Следующий проект</p>
-            <Link to={`/portfolio/${next.id}`} data-cursor-hover className="group relative block overflow-hidden rounded-3xl border border-[var(--color-border)]">
-              <div className="aspect-[21/9] overflow-hidden">
-                <img src={next.cover} alt={next.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
-                <h3 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-4xl">{next.title}</h3>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:rotate-45">
-                  <ArrowUpRight size={20} />
-                </span>
-              </div>
-            </Link>
-          </div>
+            {project.outcome.footnote && <p className="mt-8 max-w-2xl text-sm text-[var(--color-text-muted)]">{project.outcome.footnote}</p>}
+          </motion.div>
         </section>
       )}
+
+      {next && <NextProjectSection next={next} />}
     </>
+  )
+}
+
+function NextProjectSection({ next }: { next: PortfolioProject }) {
+  return (
+    <section className="border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mb-6 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]"
+        >
+          Следующий проект
+        </motion.p>
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-10%' }} transition={{ duration: 0.7 }}>
+          <Link to={`/portfolio/${next.id}`} data-cursor-hover className="group relative block overflow-hidden rounded-3xl border border-[var(--color-border)]">
+            <div className="aspect-[21/9] overflow-hidden">
+              <img src={next.cover} alt={next.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
+              <div>
+                <span className="mb-2 inline-block rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                  {next.categoryLabel}
+                </span>
+                <h3 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-4xl">{next.title}</h3>
+              </div>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:rotate-45">
+                <ArrowUpRight size={20} />
+              </span>
+            </div>
+          </Link>
+        </motion.div>
+      </div>
+    </section>
   )
 }

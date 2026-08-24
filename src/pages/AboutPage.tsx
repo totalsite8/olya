@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Cat, Palette, PackageOpen, LayoutDashboard, ArrowUpRight, GraduationCap } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { ProcessRail } from '../components/scrolly/ProcessRail'
 import { TIMELINE, EDUCATION } from '../data/timeline'
 
 const SKILLS = [
@@ -106,16 +107,8 @@ export function AboutPage() {
 
       <section className="border-t border-[var(--color-border)] px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
-          <h2 className="font-display mb-14 text-3xl font-semibold tracking-tight sm:text-5xl">Как я работаю</h2>
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {PROCESS.map((item, i) => (
-              <motion.div key={item.step} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <span className="font-mono-num text-sm text-[var(--color-accent)]">{item.step}</span>
-                <h3 className="font-display mt-3 text-xl font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          <h2 className="font-display mb-16 text-3xl font-semibold tracking-tight sm:text-5xl">Как я работаю</h2>
+          <ProcessRail steps={PROCESS} />
         </div>
       </section>
 

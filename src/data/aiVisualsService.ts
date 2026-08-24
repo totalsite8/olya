@@ -1,4 +1,32 @@
 import { Fingerprint, ImagePlus, Layers3, Wand2, ShieldCheck, Gauge } from 'lucide-react'
+import { IMG } from './images'
+
+export const AI_SERVICE_STORY = [
+  {
+    kicker: 'Шаг 01',
+    title: 'Референсы становятся моделью',
+    desc: 'Десятки изображений бренда или персонажа превращаются в кастомную LoRA-модель — она «запоминает» лицо, свет и стиль без описания в каждом промпте.',
+    image: IMG.aiVisuals.modelTraining,
+  },
+  {
+    kicker: 'Шаг 02',
+    title: 'Один герой, любой ракурс',
+    desc: 'Обычный промптинг даёт 75–85% совпадения между кадрами — лицо «плывёт». Кастомная модель держит консистентность на уровне 90–98%.',
+    image: IMG.aiVisuals.characterGrid,
+  },
+  {
+    kicker: 'Шаг 03',
+    title: 'Продукт без студии и съёмочного дня',
+    desc: 'Фотореалистичный свет и материал продукта — без аренды студии, реквизита и логистики. Рендер собирается там же, где рождается идея.',
+    image: IMG.aiVisuals.productRender,
+  },
+  {
+    kicker: 'Шаг 04',
+    title: 'Масштаб вместо ограничения',
+    desc: 'Десятки вариаций баннеров и карточек для A/B-тестов и разных площадок — за часы, а не недели ожидания новой фотосъёмки.',
+    image: IMG.aiVisuals.scalingGrid,
+  },
+]
 
 export const AI_SERVICE_PILLARS = [
   {
