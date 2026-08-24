@@ -1,19 +1,20 @@
 import { motion } from 'framer-motion'
-import { Image, Sparkles, Video, Presentation, ArrowUpRight } from 'lucide-react'
+import { Cat, Palette, PackageOpen, LayoutDashboard, ArrowUpRight, GraduationCap } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { TIMELINE, EDUCATION } from '../data/timeline'
 
 const SKILLS = [
-  { icon: Image, label: 'Дизайн', value: 'Посты, баннеры, обложки, карточки товара' },
-  { icon: Sparkles, label: 'Нейрогенерации', value: 'AI-изображения, аватары, LoRA-модели' },
-  { icon: Video, label: 'Видео и анимация', value: '2D/3D-анимация, моушн, сценарии' },
-  { icon: Presentation, label: 'Презентации', value: 'Питч-деки, инфографика, шаблоны' },
+  { icon: Cat, label: 'Маскоты и персонажи', value: 'Концепция, сценарии, иллюстрации, AI-анимация' },
+  { icon: Palette, label: 'Коммуникационный дизайн', value: 'Соцсети, стикерпаки, обложки в рамках гайдбука' },
+  { icon: PackageOpen, label: 'Брендинг и упаковка', value: 'Айдентика с нуля, логотип, макеты SKU' },
+  { icon: LayoutDashboard, label: 'Презентации', value: 'Питч-деки, инфографика, визуализация данных' },
 ]
 
 const PROCESS = [
-  { step: '01', title: 'Бриф и цели', desc: 'Разбираемся, что должен решить дизайн: продажи, узнаваемость или инвестиции.' },
-  { step: '02', title: 'Концепция', desc: 'Собираю референсы, предлагаю 2–3 визуальных направления на выбор.' },
-  { step: '03', title: 'Продакшн', desc: 'Довожу выбранную концепцию до финального результата с 3 кругами правок.' },
-  { step: '04', title: 'Передача', desc: 'Отдаю исходники и файлы в удобном формате — без скрытых доплат.' },
+  { step: '01', title: 'Задача', desc: 'Разбираюсь, что должен решить дизайн: обучение, продажи или узнаваемость бренда.' },
+  { step: '02', title: 'Концепция', desc: 'Собираю референсы, предлагаю визуальное направление и характер персонажа или бренда.' },
+  { step: '03', title: 'Продакшн', desc: 'Довожу концепцию до финального результата — иллюстрации, анимация, макеты.' },
+  { step: '04', title: 'Передача', desc: 'Отдаю исходники и файлы в удобном формате, в рамках гайдбука и айдентики.' },
 ]
 
 export function AboutPage() {
@@ -26,14 +27,14 @@ export function AboutPage() {
             Обо мне
           </p>
           <h1 className="font-display max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-8xl">
-            Дизайнер, который
+            Bakushkina Olga
             <br />
-            <span className="text-outline">думает продуктом</span>
+            <span className="text-outline">Brand-designer</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[var(--color-text-muted)] sm:text-xl">
-            Меня зовут Ольга Бакушкина. Работаю на стыке классического дизайна и нейросетей: делаю визуал, который
-            не просто красиво выглядит, а решает задачу клиента — продать, объяснить или произвести впечатление.
-            За последние годы прошла путь от постов для соцсетей до питч-деков и AI-роликов для инвестиционных раундов.
+            Работаю на стыке классического бренд-дизайна и AI-инструментов: разрабатываю корпоративных маскотов,
+            веду коммуникационный дизайн для крупных брендов, запускаю айдентику с нуля и превращаю сложные данные
+            в презентации, которые действительно читают.
           </p>
         </div>
       </section>
@@ -62,16 +63,53 @@ export function AboutPage() {
 
       <section className="px-6 py-24 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
+          <h2 className="font-display mb-14 text-3xl font-semibold tracking-tight sm:text-5xl">Мой путь</h2>
+          <div className="space-y-6">
+            <div className="flex flex-col gap-2 border-b border-[var(--color-border)] pb-6 sm:flex-row sm:items-start sm:justify-between">
+              <span className="flex shrink-0 items-center gap-2 font-mono-num text-sm text-[var(--color-text-muted)] sm:w-52">
+                <GraduationCap size={14} /> {EDUCATION.period}
+              </span>
+              <div className="flex-1">
+                <h3 className="text-base font-semibold text-[var(--color-text)]">
+                  {EDUCATION.degree} · {EDUCATION.field}
+                </h3>
+                <p className="mt-1 text-sm text-[var(--color-text-muted)]">{EDUCATION.institution}</p>
+              </div>
+            </div>
+
+            {TIMELINE.map((item, i) => (
+              <motion.div
+                key={item.period}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.06 }}
+                className="flex flex-col gap-2 border-b border-[var(--color-border)] pb-6 last:border-0 sm:flex-row sm:items-start sm:justify-between"
+              >
+                <span className="shrink-0 font-mono-num text-sm text-[var(--color-text-muted)] sm:w-52">{item.period}</span>
+                <div className="flex-1">
+                  <h3 className="whitespace-pre-line text-base font-semibold text-[var(--color-text)]">{item.place}</h3>
+                  <p className="mt-1 text-sm text-[var(--color-accent)]">{item.role}</p>
+                  <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                    {item.details.map((d) => (
+                      <li key={d} className="text-xs text-[var(--color-text-muted)]">
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-[var(--color-border)] px-6 py-24 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-[1400px]">
           <h2 className="font-display mb-14 text-3xl font-semibold tracking-tight sm:text-5xl">Как я работаю</h2>
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {PROCESS.map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
+              <motion.div key={item.step} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <span className="font-mono-num text-sm text-[var(--color-accent)]">{item.step}</span>
                 <h3 className="font-display mt-3 text-xl font-semibold tracking-tight">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-muted)]">{item.desc}</p>

@@ -1,62 +1,48 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, Instagram, Send, Mail } from 'lucide-react'
+import { ArrowUpRight, Mail, Phone, Send } from 'lucide-react'
+import { CONTACTS } from '../../data/contacts'
+import { IMG } from '../../data/images'
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
+    <footer className="relative overflow-hidden border-t border-[var(--color-border)] px-6 pb-10 pt-24 sm:px-10 lg:px-16">
+      <div className="absolute inset-0 -z-10">
+        <img src={IMG.footer.background} alt="" className="h-full w-full object-cover opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/70 to-[var(--color-bg)]/20" />
+      </div>
+
       <div className="mx-auto max-w-[1400px]">
-        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-              Готовы начать
-              <br />
-              проект?
-            </p>
-            <Link
-              to="/contact"
-              data-cursor-hover
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-5 py-2.5 text-sm font-medium text-[var(--color-text)] transition-colors hover:bg-[var(--color-surface-hover)]"
-            >
-              Написать мне <ArrowUpRight size={15} />
-            </Link>
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-3 text-sm text-[var(--color-text-muted)]">
+            <a href={`tel:${CONTACTS.phoneRaw}`} data-cursor-hover className="flex items-center gap-2.5 transition-colors hover:text-[var(--color-text)]">
+              <Phone size={15} /> {CONTACTS.phone}
+            </a>
+            <a href={CONTACTS.telegramUrl} target="_blank" rel="noreferrer" data-cursor-hover className="flex items-center gap-2.5 transition-colors hover:text-[var(--color-text)]">
+              <Send size={14} /> {CONTACTS.telegram}
+            </a>
+            <a href={`mailto:${CONTACTS.email}`} data-cursor-hover className="flex items-center gap-2.5 transition-colors hover:text-[var(--color-text)]">
+              <Mail size={15} /> {CONTACTS.email}
+            </a>
           </div>
 
-          <div className="flex gap-3">
-            <a
-              href="mailto:hello@olgabakushkina.com"
-              data-cursor-hover
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-              aria-label="Email"
-            >
-              <Mail size={17} />
-            </a>
-            <a
-              href="https://t.me"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor-hover
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-              aria-label="Telegram"
-            >
-              <Send size={16} />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              data-cursor-hover
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-              aria-label="Instagram"
-            >
-              <Instagram size={17} />
-            </a>
+          <div className="text-left sm:text-right">
+            <p className="text-sm text-[var(--color-text-muted)]">{CONTACTS.roleFull}</p>
+            <p className="font-mono-num text-xs text-[var(--color-text-muted)]">2026</p>
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Ольга Бакушкина. Все права защищены.</span>
+        <Link to="/contact" data-cursor-hover className="group mt-10 block">
+          <h2 className="font-display text-[13vw] font-bold uppercase leading-[0.85] tracking-tight sm:text-[9vw] lg:text-[7vw]">
+            Bakushkina Olga
+          </h2>
+        </Link>
+
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-[var(--color-border)] pt-6 text-xs text-[var(--color-text-muted)] sm:flex-row sm:items-center">
+          <span>© {new Date().getFullYear()} Bakushkina Olga. Все права защищены.</span>
           <div className="flex items-center gap-4">
-            <span>Дизайн · Нейрогенерации · Видео · Презентации</span>
+            <Link to="/contact" data-cursor-hover className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-text)]">
+              Написать мне <ArrowUpRight size={13} />
+            </Link>
             <Link
               to="/calculator"
               className="opacity-30 transition-opacity hover:opacity-80"

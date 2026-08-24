@@ -7,10 +7,10 @@ import type { ProjectCategory } from '../types/portfolio'
 
 const FILTERS: { id: ProjectCategory | 'all'; label: string }[] = [
   { id: 'all', label: 'Все' },
-  { id: 'design', label: 'Дизайн' },
-  { id: 'neuro', label: 'Нейрогенерации' },
-  { id: 'video', label: 'Видео и анимация' },
-  { id: 'presentation', label: 'Презентации' },
+  { id: 'mascots', label: 'Маскоты' },
+  { id: 'social', label: 'Соц.сети' },
+  { id: 'branding', label: 'Брендинг' },
+  { id: 'presentations', label: 'Презентации' },
 ]
 
 export function PortfolioPage() {

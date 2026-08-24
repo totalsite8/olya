@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { ThemeToggle } from '../ui/ThemeToggle'
+import { CONTACTS } from '../../data/contacts'
 
 const NAV_LINKS = [
   { to: '/', label: 'Главная' },
@@ -31,19 +32,15 @@ export function Header() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? 'py-3' : 'py-6'
-        }`}
-      >
+      <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'py-3' : 'py-6'}`}>
         <div
           className={`mx-auto flex max-w-[1400px] items-center justify-between rounded-full px-5 transition-all duration-500 sm:px-7 ${
             scrolled ? 'mx-4 border border-[var(--color-border)] bg-[var(--color-bg-soft)]/70 py-2.5 backdrop-blur-xl sm:mx-8' : 'py-1'
           }`}
         >
           <Link to="/" className="font-display flex items-baseline gap-2 text-lg font-semibold tracking-tight" data-cursor-hover>
-            <span>Ольга</span>
-            <span className="text-[var(--color-accent)]">Бакушкина</span>
+            <span>Bakushkina</span>
+            <span className="text-[var(--color-accent)]">Olga</span>
           </Link>
 
           <nav className="hidden items-center gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/50 p-1 backdrop-blur-md md:flex">
@@ -74,6 +71,12 @@ export function Header() {
               </NavLink>
             ))}
           </nav>
+
+          <div className="hidden items-center gap-4 lg:flex">
+            <a href={`tel:${CONTACTS.phoneRaw}`} className="text-sm text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]" data-cursor-hover>
+              {CONTACTS.phone}
+            </a>
+          </div>
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
@@ -108,23 +111,17 @@ export function Header() {
             </div>
             <nav className="mt-12 flex flex-1 flex-col justify-center gap-2">
               {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.to}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  <NavLink
-                    to={link.to}
-                    end={link.to === '/'}
-                    onClick={() => setMenuOpen(false)}
-                    className="font-display block py-3 text-4xl font-semibold tracking-tight"
-                  >
+                <motion.div key={link.to} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+                  <NavLink to={link.to} end={link.to === '/'} onClick={() => setMenuOpen(false)} className="font-display block py-3 text-4xl font-semibold tracking-tight">
                     {link.label}
                   </NavLink>
                 </motion.div>
               ))}
             </nav>
+            <div className="border-t border-[var(--color-border)] pt-6 text-sm text-[var(--color-text-muted)]">
+              <p>{CONTACTS.phone}</p>
+              <p>{CONTACTS.email}</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

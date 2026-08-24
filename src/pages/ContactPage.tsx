@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Send, Instagram, ArrowUpRight, Check } from 'lucide-react'
+import { Mail, Send, Phone, ArrowUpRight, Check } from 'lucide-react'
+import { CONTACTS } from '../data/contacts'
 
 export function ContactPage() {
   const [name, setName] = useState('')
@@ -12,7 +13,7 @@ export function ContactPage() {
     e.preventDefault()
     const subject = encodeURIComponent(`Проект от ${name || 'клиента'}`)
     const body = encodeURIComponent(`${message}\n\nКонтакт для связи: ${contact}`)
-    window.location.href = `mailto:hello@olgabakushkina.com?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${CONTACTS.email}?subject=${subject}&body=${body}`
     setSent(true)
   }
 
@@ -30,30 +31,29 @@ export function ContactPage() {
             познакомимся
           </h1>
           <p className="mt-8 max-w-md text-lg leading-relaxed text-[var(--color-text-muted)]">
-            Расскажите о задаче — отвечаю в течение рабочего дня. Если нужен точный расчёт стоимости прямо сейчас,
-            опишите объём работ в сообщении, и я пришлю смету.
+            Расскажите о задаче — отвечаю в течение рабочего дня. Опишите объём работ в сообщении, и я пришлю смету.
           </p>
 
           <div className="mt-12 space-y-4">
             <a
-              href="mailto:hello@olgabakushkina.com"
+              href={`tel:${CONTACTS.phoneRaw}`}
               data-cursor-hover
               className="group flex items-center justify-between rounded-2xl border border-[var(--color-border)] p-5 transition-colors hover:bg-[var(--color-surface-hover)]"
             >
               <div className="flex items-center gap-4">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
-                  <Mail size={18} />
+                  <Phone size={18} />
                 </span>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">Email</p>
-                  <p className="font-medium">hello@olgabakushkina.com</p>
+                  <p className="text-sm text-[var(--color-text-muted)]">Телефон</p>
+                  <p className="font-medium">{CONTACTS.phone}</p>
                 </div>
               </div>
               <ArrowUpRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
             <a
-              href="https://t.me"
+              href={CONTACTS.telegramUrl}
               target="_blank"
               rel="noreferrer"
               data-cursor-hover
@@ -65,26 +65,24 @@ export function ContactPage() {
                 </span>
                 <div>
                   <p className="text-sm text-[var(--color-text-muted)]">Telegram</p>
-                  <p className="font-medium">@olgabakushkina</p>
+                  <p className="font-medium">{CONTACTS.telegram}</p>
                 </div>
               </div>
               <ArrowUpRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
             <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
+              href={`mailto:${CONTACTS.email}`}
               data-cursor-hover
               className="group flex items-center justify-between rounded-2xl border border-[var(--color-border)] p-5 transition-colors hover:bg-[var(--color-surface-hover)]"
             >
               <div className="flex items-center gap-4">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
-                  <Instagram size={18} />
+                  <Mail size={18} />
                 </span>
                 <div>
-                  <p className="text-sm text-[var(--color-text-muted)]">Instagram</p>
-                  <p className="font-medium">@olga.bakushkina.design</p>
+                  <p className="text-sm text-[var(--color-text-muted)]">Email</p>
+                  <p className="font-medium">{CONTACTS.email}</p>
                 </div>
               </div>
               <ArrowUpRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

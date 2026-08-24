@@ -1,4 +1,4 @@
-export type ProjectCategory = 'design' | 'neuro' | 'video' | 'presentation'
+export type ProjectCategory = 'mascots' | 'social' | 'branding' | 'presentations'
 
 export interface PortfolioProject {
   id: string
@@ -9,14 +9,23 @@ export interface PortfolioProject {
   year: string
   tags: string[]
   cover: string
-  description: string
-  services: string[]
-  accent: string
+  task: string
+  role: string[]
+  nda?: string
+  outcome?: { title: string; stats?: { value: string; label: string }[]; footnote?: string }
+  gallery: string[]
 }
 
-export interface ServiceHighlight {
-  id: string
-  title: string
-  description: string
-  items: string[]
+export interface TimelineEntry {
+  period: string
+  place: string
+  role: string
+  details: string[]
+}
+
+export interface EducationEntry {
+  period: string
+  degree: string
+  field: string
+  institution: string
 }
