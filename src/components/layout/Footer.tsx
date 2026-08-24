@@ -45,12 +45,11 @@ export function Footer() {
             </Link>
             <Link
               to="/calculator"
-              className="opacity-30 transition-opacity hover:opacity-80"
+              className="flex items-center gap-1.5 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
               data-cursor-hover
-              aria-label="Внутренний калькулятор"
-              title="Внутренний калькулятор"
+              title="Внутренний калькулятор стоимости услуг"
             >
-              ·
+              Калькулятор <ArrowUpRight size={13} />
             </Link>
           </div>
         </div>

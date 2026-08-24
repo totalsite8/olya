@@ -14,6 +14,7 @@ export interface PortfolioProject {
   nda?: string
   outcome?: { title: string; stats?: { value: string; label: string }[]; footnote?: string }
   gallery: string[]
+  galleryGroups?: { title: string; images: string[] }[]
 }
 
 export interface TimelineEntry {

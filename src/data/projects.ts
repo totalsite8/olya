@@ -57,6 +57,42 @@ export const PROJECTS: PortfolioProject[] = [
       IMG.domashniy.ctaIncrease,
       IMG.domashniy.mascotLaptop,
     ],
+    galleryGroups: [
+      {
+        title: 'Маскот канала — «Дама-мелодрама»',
+        images: [
+          IMG.domashniy.pinkGifts,
+          IMG.domashniy.couchTrophy,
+          IMG.domashniy.giftPile,
+          IMG.domashniy.couch,
+          IMG.domashniy.stripedShirt,
+          IMG.domashniy.mascotLaptop,
+          IMG.domashniy.ctaIncrease,
+        ],
+      },
+      {
+        title: 'Посты, сторис и стикерпак для соцсетей',
+        images: [
+          IMG.domashniy.yearStats,
+          IMG.domashniy.socialGrid,
+          IMG.domashniy.castCollage,
+          IMG.domashniy.premierePromo,
+          IMG.domashniy.storyPopcorn,
+          IMG.domashniy.commentScreenshot,
+        ],
+      },
+      {
+        title: 'Стикеры и карточки с актёрами канала',
+        images: [
+          IMG.domashniy.castVadim,
+          IMG.domashniy.castAndrey,
+          IMG.domashniy.castLeo,
+          IMG.domashniy.castOleg,
+          IMG.domashniy.castMikhail,
+          IMG.domashniy.castKolya,
+        ],
+      },
+    ],
   },
   {
     id: 'ecozavr-brand',

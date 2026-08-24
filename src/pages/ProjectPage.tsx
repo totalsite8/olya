@@ -69,20 +69,44 @@ export function ProjectPage() {
           </div>
         )}
 
-        <div className="mx-auto mt-14 grid max-w-[1400px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {project.gallery.map((src, i) => (
-            <motion.div
-              key={src + i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (i % 4) * 0.06 }}
-              className={`overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
-            >
-              <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
-            </motion.div>
-          ))}
-        </div>
+        {project.galleryGroups ? (
+          <div className="mx-auto mt-14 max-w-[1400px] space-y-12">
+            {project.galleryGroups.map((group) => (
+              <div key={group.title}>
+                <h3 className="mb-5 text-sm font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">{group.title}</h3>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {group.images.map((src, i) => (
+                    <motion.div
+                      key={src + i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: (i % 4) * 0.06 }}
+                      className={`overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
+                    >
+                      <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mx-auto mt-14 grid max-w-[1400px] grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {project.gallery.map((src, i) => (
+              <motion.div
+                key={src + i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 4) * 0.06 }}
+                className={`overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
+              >
+                <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         {project.outcome && (
           <div className="mx-auto mt-14 max-w-[1400px] rounded-3xl border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] p-8 sm:p-10">
