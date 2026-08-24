@@ -1,4 +1,4 @@
-export type ProjectCategory = 'mascots' | 'social' | 'branding' | 'presentations' | 'video'
+export type ProjectCategory = 'mascots' | 'social' | 'branding' | 'presentations' | 'video' | 'ai'
 
 export interface PortfolioProject {
   id: string

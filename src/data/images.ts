@@ -99,6 +99,22 @@ export const IMG = {
     unlitFrame04: '/images/07_video/unlit-frame-04.webp',
     unlitFrame05: '/images/07_video/unlit-frame-05.webp',
   },
+  social: {
+    heroBg: '/images/08_social/social-hero-bg.jpg',
+    caseCover: '/images/08_social/social-case-cover.jpg',
+    grid: '/images/08_social/social-grid-01.jpg',
+    storyMockup: '/images/08_social/social-story-mockup.jpg',
+  },
+  aiVisuals: {
+    heroBg: '/images/09_ai/ai-hero-bg.jpg',
+    caseCover: '/images/09_ai/ai-case-cover.jpg',
+    characterGrid: '/images/09_ai/ai-character-grid.jpg',
+    productRender: '/images/09_ai/ai-product-render.jpg',
+  },
+  pitch: {
+    heroBg: '/images/10_pitch/pitch-hero-bg.jpg',
+    caseCover: '/images/10_pitch/pitch-case-cover.jpg',
+  },
 } as const
 
 export const VIDEOS = {

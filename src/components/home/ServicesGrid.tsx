@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Cat, Palette, PackageOpen, LayoutDashboard, Film, ArrowUpRight } from 'lucide-react'
+import { Cat, PackageOpen, LayoutDashboard, Film, ArrowUpRight, Sparkles, Wand2 } from 'lucide-react'
 import { ensureGsapPlugins, gsap } from '../../lib/gsap'
 
 const SERVICES = [
@@ -12,28 +12,37 @@ const SERVICES = [
     href: '/video-branding',
   },
   {
+    icon: Sparkles,
+    title: 'Дизайн соцсетей',
+    description: 'Контент-система для ленты: гайдбук и переиспользуемые шаблоны постов, сторис и карточек товара.',
+    tags: ['Контент-сетка', 'Гайдбук', 'Шаблоны'],
+    href: '/social-media-design',
+  },
+  {
+    icon: Wand2,
+    title: 'AI-визуалы бренда',
+    description: 'Консистентный персонаж и продукт-рендеры на кастомной модели, обученной на стиле бренда.',
+    tags: ['LoRA', 'Консистентный персонаж', 'Продукт-рендер'],
+    href: '/ai-visuals',
+  },
+  {
+    icon: LayoutDashboard,
+    title: 'Питч-деки и презентации',
+    description: 'Нарратив-стратегия и дизайн инвесторской презентации — от сырых цифр до убедительной истории.',
+    tags: ['Питч-дек', 'Инфографика', 'Сторителлинг'],
+    href: '/pitch-decks',
+  },
+  {
     icon: Cat,
     title: 'Маскоты и персонажи',
     description: 'Разработка корпоративных маскотов, сценарии обучающих роликов, иллюстрации, раскадровка и AI-анимация под ключ.',
     tags: ['Персонажи', 'Сценарий', 'AI-анимация'],
   },
   {
-    icon: Palette,
-    title: 'Коммуникационный дизайн',
-    description: 'Дизайн для социальных сетей брендов: шаблоны постов, обложки, сторис, стикерпаки — в рамках гайдбука и айдентики.',
-    tags: ['Соцсети', 'Стикерпаки', 'Гайдбук'],
-  },
-  {
     icon: PackageOpen,
     title: 'Брендинг и упаковка',
     description: 'Разработка айдентики с нуля, дизайн упаковки, логотипы и позиционирование — от концепции до готовых макетов SKU.',
     tags: ['Логотип', 'Упаковка', 'Позиционирование'],
-  },
-  {
-    icon: LayoutDashboard,
-    title: 'Дизайн презентаций',
-    description: 'Превращаю данные и сложные темы в ясное визуальное повествование: питч-деки, аналитика, инфографика.',
-    tags: ['Питч-дек', 'Инфографика', 'Сторителлинг'],
   },
 ]
 
@@ -61,7 +70,7 @@ export function ServicesGrid() {
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Что я делаю
         </p>
-        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Пять направлений, один результат</h2>
+        <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Шесть направлений, один результат</h2>
 
         <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map(({ icon: Icon, title, description, tags, href }) => {

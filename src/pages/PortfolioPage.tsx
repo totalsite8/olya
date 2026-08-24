@@ -10,6 +10,7 @@ const FILTERS: { id: ProjectCategory | 'all'; label: string }[] = [
   { id: 'video', label: 'Видео' },
   { id: 'mascots', label: 'Маскоты' },
   { id: 'social', label: 'Соц.сети' },
+  { id: 'ai', label: 'AI-визуалы' },
   { id: 'branding', label: 'Брендинг' },
   { id: 'presentations', label: 'Презентации' },
 ]
