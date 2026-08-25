@@ -32,32 +32,38 @@ export const PITCH_SERVICE_PILLARS = [
   {
     icon: BookOpen,
     title: 'Нарратив-стратегия',
-    description: 'Структура истории для инвестора: проблема → решение → рынок → цифры — до того, как открыт редактор слайдов.',
+    description: 'Проблема → решение → рынок → цифры.',
+    image: IMG.pitch.narrativeBoard,
   },
   {
     icon: BarChart3,
     title: 'Визуализация данных',
-    description: 'Графики, диаграммы и инфографика, которые читаются за 3 секунды — без простыней текста и таблиц.',
+    description: 'Графики и инфографика, которые читаются за 3 секунды.',
+    image: IMG.pitch.slidesGrid,
   },
   {
     icon: Palette,
     title: 'Дизайн-система деки',
-    description: 'Единый визуальный язык на все слайды: шрифты, цвета, сетка — используются и в будущих обновлениях.',
+    description: 'Единый язык на все слайды и будущие обновления.',
+    image: IMG.pitch.coverSlide,
   },
   {
     icon: FileStack,
     title: 'Форматы под задачу',
-    description: 'Питч-дек для встречи, teaser для рассылки, one-pager для быстрого знакомства — из одной дизайн-системы.',
+    description: 'Питч-дек, teaser, one-pager — одна система.',
+    image: IMG.pitch.caseCover,
   },
   {
     icon: Presentation,
     title: 'Корпоративные презентации',
-    description: 'Не только питчи инвесторам: отчёты, стратегические сессии, продуктовые демо — тот же уровень подачи.',
+    description: 'Отчёты, стратегические сессии, продуктовые демо.',
+    image: IMG.pitch.dealClosed,
   },
   {
     icon: ShieldCheck,
     title: 'NDA и конфиденциальность',
-    description: 'Работа с чувствительными цифрами и стратегией под подписанным соглашением о неразглашении.',
+    description: 'Чувствительные цифры под соглашением о неразглашении.',
+    image: IMG.pitch.heroBg,
   },
 ]
 

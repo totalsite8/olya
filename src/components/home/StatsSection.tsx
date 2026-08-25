@@ -36,7 +36,7 @@ function Counter({ value, suffix, decimals = 0 }: { value: number; suffix: strin
 
 export function StatsSection() {
   return (
-    <section className="relative border-y border-[var(--color-border)] px-6 py-20 sm:px-10 lg:px-16">
+    <section className="relative border-y border-[var(--color-border)] px-5 py-12 sm:px-10 sm:py-20 lg:px-16">
       <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-8 lg:grid-cols-4">
         {STATS.map((stat, i) => (
           <motion.div

@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState, type RefObject } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Check, ChevronDown } from 'lucide-react'
 import { StickyMediaStory } from '../components/scrolly/StickyMediaStory'
+import { PillarsGallery } from '../components/scrolly/PillarsGallery'
 import { ChapterNav } from '../components/scrolly/ChapterNav'
 import { RevealText } from '../components/scrolly/RevealText'
-import { useScrollReactiveIcons } from '../hooks/useScrollReactiveIcons'
 import { ProcessRail } from '../components/scrolly/ProcessRail'
 import { SectionBackdrop } from '../components/scrolly/SectionBackdrop'
 import { CtaSection } from '../components/home/CtaSection'
-import { ensureGsapPlugins, gsap } from '../lib/gsap'
 import { PROJECTS } from '../data/projects'
 import { IMG } from '../data/images'
 import {
@@ -33,28 +32,12 @@ const CHAPTERS = [
 ]
 
 export function PitchDecksPage() {
-  const pillarsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    ensureGsapPlugins()
-    const container = pillarsRef.current
-    if (!container) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        container.querySelectorAll('.reveal-item'),
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
-      )
-    }, container)
-    return () => ctx.revert()
-  }, [])
-
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <ChapterNav chapters={CHAPTERS} />
       <HeroSection />
       <StorySection />
-      <PillarsSection ref={pillarsRef} />
+      <PillarsSection />
       <CaseSection />
       <ProcessSection />
       <DeliverablesSection />
@@ -97,7 +80,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.6 }}
-            className="mt-6 max-w-lg text-base text-[var(--color-text-muted)] sm:text-lg"
+            className="mt-4 max-w-lg text-sm text-[var(--color-text-muted)] sm:mt-6 sm:text-lg"
           >
             Нарратив-стратегия и дизайн инвесторской презентации — от сырых цифр до истории,
             которая читается за отведённые инвестору три минуты внимания.
@@ -143,7 +126,7 @@ function HeroSection() {
 
 function StorySection() {
   return (
-    <section id="story" className="scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
+    <section id="story" className="scroll-mt-24 px-5 py-14 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -166,10 +149,9 @@ function StorySection() {
   )
 }
 
-function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
-  useScrollReactiveIcons(ref)
+function PillarsSection() {
   return (
-    <section id="pillars" className="relative scroll-mt-24 border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="pillars" className="relative scroll-mt-24 border-y border-[var(--color-border)] px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <SectionBackdrop src={IMG.pitch.heroBg} opacity={0.1} />
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
@@ -180,19 +162,8 @@ function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
           От нарратива до финального файла
         </RevealText>
 
-        <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PITCH_SERVICE_PILLARS.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="reveal-item group relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40"
-            >
-              <div className="reveal-icon mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
-                <Icon size={22} />
-              </div>
-              <h3 className="font-display mb-2 text-xl font-semibold tracking-tight">{title}</h3>
-              <p className="text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p>
-            </div>
-          ))}
+        <div className="mt-8 sm:mt-16">
+          <PillarsGallery items={PITCH_SERVICE_PILLARS} />
         </div>
       </div>
     </section>
@@ -201,7 +172,7 @@ function PillarsSection({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
 
 function CaseSection() {
   return (
-    <section id="case" className="scroll-mt-24 px-6 py-28 sm:px-10 lg:px-16">
+    <section id="case" className="scroll-mt-24 px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -265,7 +236,7 @@ function CaseSection() {
 
 function ProcessSection() {
   return (
-    <section id="process" className="scroll-mt-24 border-t border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="process" className="scroll-mt-24 border-t border-[var(--color-border)] px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -283,7 +254,7 @@ function ProcessSection() {
 
 function DeliverablesSection() {
   return (
-    <section id="deliverables" className="relative scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] px-6 py-28 sm:px-10 lg:px-16">
+    <section id="deliverables" className="relative scroll-mt-24 overflow-hidden border-y border-[var(--color-border)] px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <div className="grain-gradient absolute inset-0" />
       <div className="relative mx-auto grid max-w-[1400px] grid-cols-1 gap-14 lg:grid-cols-2 lg:items-center">
         <div>
@@ -327,7 +298,7 @@ function FaqSection() {
   const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="scroll-mt-24 px-6 py-28 sm:px-10 lg:px-16">
+    <section id="faq" className="scroll-mt-24 px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto max-w-[900px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />

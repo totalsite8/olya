@@ -1,72 +1,56 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Cat, PackageOpen, LayoutDashboard, Film, ArrowUpRight, Sparkles, Wand2 } from 'lucide-react'
-import { ensureGsapPlugins, gsap } from '../../lib/gsap'
-import { useScrollReactiveIcons } from '../../hooks/useScrollReactiveIcons'
+import { ArrowUpRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { IMG } from '../../data/images'
 
 const SERVICES = [
   {
-    icon: Film,
     title: 'Видео и айдентика',
-    description: 'Рекламные ролики, AI-продакшн и motion-гайд бренда под ключ — от идеи до адаптации под все форматы.',
-    tags: ['AI-видео', 'Motion-гайд', '9:16 / 16:9'],
+    tags: ['AI-видео', 'Motion-гайд'],
+    image: IMG.video.unlitPoster,
     href: '/video-branding',
+    aspect: 'aspect-[3/4]',
   },
   {
-    icon: Sparkles,
     title: 'Дизайн соцсетей',
-    description: 'Контент-система для ленты: гайдбук и переиспользуемые шаблоны постов, сторис и карточек товара.',
-    tags: ['Контент-сетка', 'Гайдбук', 'Шаблоны'],
+    tags: ['Контент-сетка', 'Шаблоны'],
+    image: IMG.social.caseCover,
     href: '/social-media-design',
+    aspect: 'aspect-[4/3]',
   },
   {
-    icon: Wand2,
     title: 'AI-визуалы бренда',
-    description: 'Консистентный персонаж и продукт-рендеры на кастомной модели, обученной на стиле бренда.',
-    tags: ['LoRA', 'Консистентный персонаж', 'Продукт-рендер'],
+    tags: ['LoRA', 'Продукт-рендер'],
+    image: IMG.aiVisuals.productRender,
     href: '/ai-visuals',
+    aspect: 'aspect-[4/3]',
   },
   {
-    icon: LayoutDashboard,
     title: 'Питч-деки и презентации',
-    description: 'Нарратив-стратегия и дизайн инвесторской презентации — от сырых цифр до убедительной истории.',
-    tags: ['Питч-дек', 'Инфографика', 'Сторителлинг'],
+    tags: ['Питч-дек', 'Сторителлинг'],
+    image: IMG.pitch.coverSlide,
     href: '/pitch-decks',
+    aspect: 'aspect-[3/4]',
   },
   {
-    icon: Cat,
     title: 'Маскоты и персонажи',
-    description: 'Разработка корпоративных маскотов, сценарии обучающих роликов, иллюстрации, раскадровка и AI-анимация под ключ.',
-    tags: ['Персонажи', 'Сценарий', 'AI-анимация'],
+    tags: ['Персонажи', 'AI-анимация'],
+    image: IMG.alfa.hero,
+    href: '/portfolio/alfa-mascots',
+    aspect: 'aspect-[4/3]',
   },
   {
-    icon: PackageOpen,
     title: 'Брендинг и упаковка',
-    description: 'Разработка айдентики с нуля, дизайн упаковки, логотипы и позиционирование — от концепции до готовых макетов SKU.',
-    tags: ['Логотип', 'Упаковка', 'Позиционирование'],
+    tags: ['Логотип', 'Упаковка'],
+    image: IMG.ecozavr.productGrid,
+    href: '/portfolio/ecozavr-brand',
+    aspect: 'aspect-[3/4]',
   },
 ]
 
 export function ServicesGrid() {
-  const ref = useRef<HTMLDivElement>(null)
-  useScrollReactiveIcons(ref, '.reveal-icon')
-
-  useEffect(() => {
-    ensureGsapPlugins()
-    const container = ref.current
-    if (!container) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        container.querySelectorAll('.service-card'),
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: container, start: 'top 82%', once: true } },
-      )
-    }, container)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section className="relative px-6 py-28 sm:px-10 lg:px-16">
+    <section className="relative px-5 py-16 sm:px-10 sm:py-28 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
@@ -74,39 +58,46 @@ export function ServicesGrid() {
         </p>
         <h2 className="font-display max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Шесть направлений, один результат</h2>
 
-        <div ref={ref} className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map(({ icon: Icon, title, description, tags, href }) => {
-            const cardClassName =
-              'service-card reveal-item group relative block overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-bg-soft)] p-7 transition-colors hover:border-[var(--color-accent)]/40'
-            const content = (
-              <>
-                <div className="reveal-icon mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-transform group-hover:scale-110">
-                  <Icon size={22} />
+        <div className="mt-10 grid grid-cols-2 gap-2.5 sm:mt-16 sm:gap-4 lg:grid-cols-3">
+          {SERVICES.map((service, i) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ delay: (i % 3) * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Link
+                to={service.href}
+                data-cursor-hover
+                className={`group relative block overflow-hidden rounded-2xl sm:rounded-3xl ${service.aspect}`}
+              >
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3.5 sm:p-6">
+                  <div>
+                    <h3 className="font-display text-sm font-semibold leading-tight tracking-tight text-white sm:text-xl">{service.title}</h3>
+                    <div className="mt-1.5 hidden flex-wrap gap-1.5 sm:flex">
+                      {service.tags.map((tag) => (
+                        <span key={tag} className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:rotate-45 sm:h-11 sm:w-11">
+                    <ArrowUpRight size={14} className="sm:hidden" />
+                    <ArrowUpRight size={18} className="hidden sm:block" />
+                  </span>
                 </div>
-                <h3 className="font-display mb-2 flex items-center gap-2 text-xl font-semibold tracking-tight">
-                  {title}
-                  {href && <ArrowUpRight size={16} className="text-[var(--color-text-muted)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />}
-                </h3>
-                <p className="mb-5 text-sm leading-relaxed text-[var(--color-text-muted)]">{description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-[var(--color-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)]">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )
-            return href ? (
-              <Link key={title} to={href} data-cursor-hover className={`${cardClassName} cursor-pointer`}>
-                {content}
               </Link>
-            ) : (
-              <div key={title} className={cardClassName}>
-                {content}
-              </div>
-            )
-          })}
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -19,26 +19,25 @@ export function TimelineSection() {
       desc: item.role,
       image: TIMELINE_IMAGES[i + 1],
       extra: (
-        <ul className="mt-4 space-y-1.5">
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {item.details.map((d) => (
-            <li key={d} className="flex gap-2 text-sm leading-relaxed text-[var(--color-text-muted)]">
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[var(--color-accent)]" />
+            <span key={d} className="rounded-full border border-[var(--color-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)]">
               {d}
-            </li>
+            </span>
           ))}
-        </ul>
+        </div>
       ),
     })),
   ]
 
   return (
-    <section className="relative border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] px-6 py-24 sm:px-10 lg:px-16">
+    <section className="relative border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] px-5 py-14 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           8 лет в дизайне
         </p>
-        <h2 className="font-display mb-14 max-w-2xl text-4xl font-semibold tracking-tight sm:text-6xl">Мой путь</h2>
+        <h2 className="font-display mb-8 max-w-2xl text-4xl font-semibold tracking-tight sm:mb-14 sm:text-6xl">Мой путь</h2>
 
         <StickyMediaStory
           steps={steps}

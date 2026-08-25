@@ -153,14 +153,14 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
   return (
     <>
       {/* Задача / роль — читаются как продолжение истории кейса, не как отдельный блок */}
-      <section id="brief" className="relative scroll-mt-24 px-6 py-24 sm:px-10 lg:px-16">
+      <section id="brief" className="relative scroll-mt-24 px-5 py-10 sm:px-10 sm:py-24 lg:px-16">
         <div className="mx-auto max-w-[1400px]">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1px_1fr]">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1px_1fr] lg:gap-10">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-15%' }} transition={{ duration: 0.7 }}>
-              <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)]">
+              <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--color-text-muted)] sm:mb-4">
                 <Target size={13} /> Задача
               </span>
-              <p className="text-lg leading-relaxed text-[var(--color-text)] sm:text-xl">{project.task}</p>
+              <p className="text-base leading-relaxed text-[var(--color-text)] sm:text-xl">{project.task}</p>
             </motion.div>
 
             <div className="hidden bg-[var(--color-border)] lg:block" />
@@ -241,7 +241,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
       </section>
 
       {project.outcome && (
-        <section id="outcome" className="scroll-mt-24 px-6 py-20 sm:px-10 lg:px-16">
+        <section id="outcome" className="scroll-mt-24 px-5 py-12 sm:px-10 sm:py-20 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -280,7 +280,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
 
 function NextProjectSection({ next }: { next: PortfolioProject }) {
   return (
-    <section id="next" className="scroll-mt-24 border-t border-[var(--color-border)] px-6 py-16 sm:px-10 lg:px-16">
+    <section id="next" className="scroll-mt-24 border-t border-[var(--color-border)] px-5 py-10 sm:px-10 sm:py-16 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <motion.p
           initial={{ opacity: 0 }}

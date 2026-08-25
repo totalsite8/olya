@@ -53,14 +53,14 @@ export function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
-    <section ref={sectionRef} className="relative flex min-h-[100svh] flex-col overflow-hidden pb-14 pt-32 sm:pb-20">
+    <section ref={sectionRef} className="relative flex min-h-[100svh] flex-col overflow-hidden pb-10 pt-28 sm:pb-20 sm:pt-32">
       <motion.div style={{ y: bgY }} className="absolute inset-0 -z-10">
         <img src={IMG.hero.background} alt="" className="h-full w-full object-cover opacity-80" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/10 via-transparent to-[var(--color-bg)]" />
       </motion.div>
 
-      <motion.div style={{ opacity }} className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-between px-6 sm:px-10 lg:px-16">
-        <div className="flex items-center justify-between text-sm text-[var(--color-text-muted)]">
+      <motion.div style={{ opacity }} className="mx-auto flex w-full max-w-[1400px] flex-1 flex-col justify-between">
+        <div className="flex items-center justify-between px-5 text-xs text-[var(--color-text-muted)] sm:px-10 sm:text-sm lg:px-16">
           <a href={`tel:${CONTACTS.phoneRaw}`} data-cursor-hover className="transition-colors hover:text-[var(--color-text)]">
             {CONTACTS.phone}
           </a>
@@ -69,7 +69,7 @@ export function HeroSection() {
           </a>
         </div>
 
-        <div className="mt-16 flex flex-col items-center text-center sm:mt-20">
+        <div className="mt-10 flex flex-col items-center px-5 text-center sm:mt-16 sm:px-10 lg:px-16">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,38 @@ export function HeroSection() {
           </motion.p>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-3 sm:mt-20 sm:gap-4 lg:grid-cols-5">
+        {/* Мобильная раскладка: крупная горизонтальная лента work-карточек со snap-скроллом —
+            каждая работа видна целиком, без мелких превью и без лишнего текста. */}
+        <div className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1 sm:hidden">
+          {HERO_CARDS.map((card, i) => (
+            <motion.div
+              key={card.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 + i * 0.06, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[78vw] shrink-0 snap-center"
+            >
+              <Link
+                to={card.href ?? `/portfolio/${card.id}`}
+                data-cursor-hover
+                className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-3xl p-5"
+              >
+                <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                <div className={`absolute inset-0 ${card.tone === 'pink' ? 'bg-gradient-to-t from-black/55 via-black/10 to-transparent' : 'bg-gradient-to-t from-black/85 via-black/20 to-transparent'}`} />
+                <div className="relative z-10">
+                  <h3 className="font-display whitespace-pre-line text-xl font-semibold leading-tight text-white">{card.title}</h3>
+                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black">
+                    Подробнее
+                    <ArrowRight size={12} />
+                  </span>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Планшет и десктоп: широкая сетка */}
+        <div className="mt-16 hidden gap-3 px-5 sm:grid sm:grid-cols-2 sm:px-10 sm:gap-4 lg:grid-cols-5 lg:px-16">
           {HERO_CARDS.map((card, i) => (
             <motion.div
               key={card.id}
@@ -131,7 +162,7 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center text-[var(--color-text-muted)]"
+        className="pointer-events-none absolute inset-x-0 bottom-3 hidden justify-center text-[var(--color-text-muted)] sm:flex"
       >
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }} className="flex flex-col items-center gap-1">
           <span className="text-[10px] font-medium uppercase tracking-[0.25em]">Листайте</span>

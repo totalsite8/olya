@@ -50,32 +50,38 @@ export const VIDEO_SERVICE_PILLARS = [
   {
     icon: Film,
     title: 'Рекламные ролики',
-    description: 'Продуктовая и брендовая реклама: от идеи и раскадровки до финального монтажа и цветокоррекции.',
+    description: 'От идеи и раскадровки до монтажа и цветокоррекции.',
+    image: IMG.video.unlitFrame04,
   },
   {
     icon: Wand2,
     title: 'AI-продакшн',
-    description: 'Генеративное видео и композитинг там, где съёмка избыточна или невозможна — с продакшн-уровнем финиша.',
+    description: 'Композитинг там, где съёмка избыточна или невозможна.',
+    image: IMG.video.unlitFrame01,
   },
   {
     icon: Palette,
     title: 'Видео-айдентика',
-    description: 'Motion-гайд бренда: свет, темп, цвет, переходы — единый визуальный язык для всех будущих роликов.',
+    description: 'Motion-гайд бренда: свет, темп, цвет, переходы.',
+    image: IMG.video.motionGuide,
   },
   {
     icon: Layers,
     title: 'Мультиформатность',
-    description: 'Один мастер-ролик — адаптация под 16:9, 9:16, 1:1, 4:5 без потери смысла и композиции кадра.',
+    description: 'Один мастер-ролик — адаптация под 16:9, 9:16, 1:1, 4:5.',
+    image: IMG.video.unlitPoster,
   },
   {
     icon: Sparkles,
     title: 'Моушн-дизайн',
-    description: 'Анимация логотипа, лого-стингеры, лower-thirds и системные переходы бренда.',
+    description: 'Анимация логотипа, лого-стингеры, системные переходы.',
+    image: IMG.video.unlitFrame05,
   },
   {
     icon: Repeat,
     title: 'Контент-системы',
-    description: 'Не разовый ролик, а переиспользуемый шаблон: снял один раз — используешь месяцами.',
+    description: 'Снял один раз — используешь месяцами.',
+    image: IMG.video.storyboard,
   },
 ]
 

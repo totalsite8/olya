@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
 
 export function CtaSection() {
   return (
-    <section className="relative overflow-hidden px-6 py-32 sm:px-10 lg:px-16">
+    <section className="relative overflow-hidden px-5 py-16 sm:px-10 sm:py-32 lg:px-16">
       <div className="grain-gradient absolute inset-0" />
       <div className="relative mx-auto flex max-w-[1400px] flex-col items-center text-center">
         <motion.p

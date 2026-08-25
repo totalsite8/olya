@@ -18,23 +18,23 @@ export function ContactPage() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 pb-28 pt-36 sm:px-10 lg:px-16">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 lg:grid-cols-[1fr_1fr]">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-5 pb-16 pt-32 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <div>
-          <p className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+          <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:mb-4">
             <span className="h-px w-8 bg-[var(--color-accent)]" />
             Контакты
           </p>
-          <h1 className="font-display text-5xl font-semibold leading-[0.95] tracking-tight sm:text-7xl">
+          <h1 className="font-display text-4xl font-semibold leading-[0.95] tracking-tight sm:text-7xl">
             Давайте
             <br />
             познакомимся
           </h1>
-          <p className="mt-8 max-w-md text-lg leading-relaxed text-[var(--color-text-muted)]">
-            Расскажите о задаче — отвечаю в течение рабочего дня. Опишите объём работ в сообщении, и я пришлю смету.
+          <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--color-text-muted)] sm:mt-8 sm:text-lg">
+            Расскажите о задаче — отвечаю в течение рабочего дня. Опишите объём работ, и я пришлю смету.
           </p>
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-8 space-y-3 sm:mt-12 sm:space-y-4">
             <a
               href={`tel:${CONTACTS.phoneRaw}`}
               data-cursor-hover

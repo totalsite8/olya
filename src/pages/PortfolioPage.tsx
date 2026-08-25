@@ -21,20 +21,20 @@ export function PortfolioPage() {
   const filtered = useMemo(() => (filter === 'all' ? PROJECTS : PROJECTS.filter((p) => p.category === filter)), [filter])
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-6 pb-28 pt-36 sm:px-10 lg:px-16">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-5 pb-16 pt-32 sm:px-10 sm:pb-28 sm:pt-36 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
-        <p className="mb-4 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+        <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)] sm:mb-4">
           <span className="h-px w-8 bg-[var(--color-accent)]" />
           Портфолио
         </p>
-        <h1 className="font-display max-w-3xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-7xl">Работы, за которые не стыдно</h1>
+        <h1 className="font-display max-w-3xl text-4xl font-semibold leading-[0.95] tracking-tight sm:text-7xl">Работы, за которые не стыдно</h1>
 
-        <div className="no-scrollbar mt-12 flex gap-2 overflow-x-auto">
+        <div className="no-scrollbar mt-6 flex gap-2 overflow-x-auto sm:mt-12">
           {FILTERS.map((f) => (
             <button
               key={f.id}
               onClick={() => setFilter(f.id)}
-              className={`relative shrink-0 rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
+              className={`relative shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 sm:py-2.5 ${
                 filter === f.id ? 'text-[var(--color-accent-contrast)]' : 'border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)]'
               }`}
             >
@@ -46,7 +46,7 @@ export function PortfolioPage() {
           ))}
         </div>
 
-        <motion.div layout className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="mt-6 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <motion.div
@@ -57,21 +57,22 @@ export function PortfolioPage() {
                 exit={{ opacity: 0, y: -24 }}
                 transition={{ duration: 0.4 }}
               >
-                <Link to={`/portfolio/${project.id}`} data-cursor-hover className="group relative block overflow-hidden rounded-3xl border border-[var(--color-border)]">
+                <Link to={`/portfolio/${project.id}`} data-cursor-hover className="group relative block overflow-hidden rounded-2xl border border-[var(--color-border)] sm:rounded-3xl">
                   <div className="aspect-[4/3] overflow-hidden">
                     <img src={project.cover} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-6">
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-6">
                     <div>
-                      <span className="mb-2 inline-block rounded-full border border-white/20 bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                      <span className="mb-1.5 inline-block rounded-full border border-white/20 bg-black/30 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md sm:mb-2 sm:px-3 sm:text-xs">
                         {project.categoryLabel}
                       </span>
-                      <h3 className="font-display text-xl font-semibold tracking-tight text-white">{project.title}</h3>
+                      <h3 className="font-display text-lg font-semibold tracking-tight text-white sm:text-xl">{project.title}</h3>
                       <p className="mt-0.5 text-xs text-white/70">{project.year}</p>
                     </div>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:rotate-45">
-                      <ArrowUpRight size={16} />
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-black transition-transform group-hover:rotate-45 sm:h-10 sm:w-10">
+                      <ArrowUpRight size={15} className="sm:hidden" />
+                      <ArrowUpRight size={16} className="hidden sm:block" />
                     </span>
                   </div>
                 </Link>

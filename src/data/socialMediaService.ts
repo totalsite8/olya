@@ -38,32 +38,38 @@ export const SOCIAL_SERVICE_PILLARS = [
   {
     icon: Grid3x3,
     title: 'Контент-сетка',
-    description: 'Единая визуальная система ленты: посты, карточки товара, обложки — бренд узнаётся с первого взгляда.',
+    description: 'Посты, карточки товара, обложки — бренд узнаётся с первого взгляда.',
+    image: IMG.social.grid,
   },
   {
     icon: Sparkles,
     title: 'Сторис и Reels-обложки',
-    description: 'Шаблоны сторис, актуальные, обложки хайлайтов — оформление, которое живёт 24/7, а не разово.',
+    description: 'Оформление, которое живёт 24/7, а не разово.',
+    image: IMG.social.storyMockup,
   },
   {
     icon: Palette,
     title: 'Гайдбук соцсетей',
-    description: 'Цвета, шрифты, сетка, тон — правила, по которым любой следующий пост собирается за 10 минут.',
+    description: 'Правила, по которым пост собирается за 10 минут.',
+    image: IMG.social.guidebook,
   },
   {
     icon: Repeat2,
     title: 'Переиспользуемые шаблоны',
-    description: 'Не разовые картинки, а редактируемые шаблоны в Figma/Canva — сами публикуете новые посты без дизайнера.',
+    description: 'Публикуете новые посты сами, без дизайнера.',
+    image: IMG.social.calendar,
   },
   {
     icon: TrendingUp,
     title: 'Рекламные креативы',
-    description: 'Баннеры и карусели под performance-задачи: узнаваемость бренда сохраняется даже в перформанс-рекламе.',
+    description: 'Баннеры и карусели под performance-задачи.',
+    image: IMG.social.caseCover,
   },
   {
     icon: Clock,
     title: 'Быстрый деливери',
-    description: 'Первый драфт — в течение 48 часов, финальная сдача пакета — по согласованному графику без срывов.',
+    description: 'Первый драфт — в течение 48 часов.',
+    image: IMG.social.resultsDashboard,
   },
 ]
 
