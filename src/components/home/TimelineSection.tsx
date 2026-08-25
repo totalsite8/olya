@@ -86,11 +86,14 @@ export function TimelineSection() {
           ))}
         </div>
 
-        {/* Десктоп: индекс-панель слева + «активный экран» справа, sticky-синхронизация по скроллу */}
+        {/* Десктоп: индекс-панель слева + «активный экран» справа, sticky-синхронизация по скроллу.
+            Каждый пункт занимает почти целый экран прокрутки — переключение начинается только
+            после того, как правая панель «залипла» под хедером и оба блока видны целиком,
+            а не раньше, пока секция ещё выезжает на экран. */}
         <div className="hidden lg:grid lg:grid-cols-[340px_1fr] lg:gap-10">
-          <div ref={trackRef} className="flex flex-col">
+          <div ref={trackRef} className="flex flex-col py-[6vh]">
             {STEPS.map((step, i) => (
-              <div key={step.title} ref={setRef(i)} className="group relative flex min-h-[19vh] flex-col justify-center border-l border-[var(--color-border)] pl-6">
+              <div key={step.title} ref={setRef(i)} className="group relative flex min-h-[88vh] flex-col justify-center border-l border-[var(--color-border)] pl-6">
                 <span
                   className="absolute left-0 top-1/2 h-8 w-px -translate-y-1/2 bg-[var(--color-accent)] transition-opacity duration-300"
                   style={{ opacity: active === i ? 1 : 0 }}
