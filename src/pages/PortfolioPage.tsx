@@ -59,7 +59,7 @@ export function PortfolioPage() {
               >
                 <Link to={`/portfolio/${project.id}`} data-cursor-hover className="group relative block overflow-hidden rounded-2xl border border-[var(--color-border)] sm:rounded-3xl">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={project.cover} alt={project.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={project.cover} alt={project.title} decoding="async" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-6">

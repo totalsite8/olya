@@ -51,7 +51,7 @@ function HeroSection() {
   return (
     <section id="hero" className="relative flex min-h-[90svh] scroll-mt-24 flex-col justify-end overflow-hidden pb-16 pt-32 sm:pb-24">
       <div className="absolute inset-0 -z-10">
-        <img src={IMG.aiVisuals.heroBg} alt="" className="h-full w-full object-cover opacity-70" />
+        <img src={IMG.aiVisuals.heroBg} alt="" decoding="async" className="h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/10 via-[var(--color-bg)]/50 to-[var(--color-bg)]" />
       </div>
 
@@ -111,7 +111,7 @@ function HeroSection() {
           transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden rounded-3xl border border-[var(--color-border)] shadow-2xl"
         >
-          <img src={IMG.aiVisuals.productRender} alt="Пример AI-рендера продукта" className="h-full w-full object-cover" />
+          <img src={IMG.aiVisuals.productRender} alt="Пример AI-рендера продукта" decoding="async" className="h-full w-full object-cover" />
         </motion.div>
       </div>
 
@@ -235,7 +235,7 @@ function CaseSection() {
               transition={{ delay: (i % 4) * 0.06 }}
               className="aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--color-border)]"
             >
-              <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <img src={src} alt="" decoding="async" className="h-full w-full object-cover" loading="lazy" />
             </motion.div>
           ))}
         </div>

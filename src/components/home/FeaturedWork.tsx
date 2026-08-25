@@ -78,7 +78,7 @@ export function FeaturedWork() {
               className={`work-card group relative block overflow-hidden rounded-2xl border border-[var(--color-border)] sm:rounded-3xl ${i === 0 ? 'md:col-span-2' : ''}`}
             >
               <div className={`relative overflow-hidden ${i === 0 ? 'aspect-[4/3] sm:aspect-[16/9]' : 'aspect-[4/3]'}`}>
-                <img src={project.cover} alt={project.title} className="work-card-image h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={project.cover} alt={project.title} decoding="async" loading="lazy" className="work-card-image h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
               </div>
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-8">

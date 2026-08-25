@@ -44,7 +44,7 @@ function VideoHero({ project }: { project: PortfolioProject }) {
   return (
     <section className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
       <div className="absolute inset-0 -z-10">
-        <img src={project.cover} alt="" className="h-full w-full scale-110 object-cover opacity-25 blur-3xl" />
+        <img src={project.cover} alt="" decoding="async" className="h-full w-full scale-110 object-cover opacity-25 blur-3xl" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/40 via-[var(--color-bg)]/70 to-[var(--color-bg)]" />
       </div>
 
@@ -222,7 +222,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
                       key={src + i}
                       className={`case-tile relative overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
                     >
-                      <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                      <img src={src} alt="" decoding="async" className="h-full w-full object-cover" loading="lazy" />
                     </div>
                   ))}
                 </div>
@@ -232,7 +232,7 @@ function ProjectBody({ project, next }: { project: PortfolioProject; next: Portf
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {project.gallery.map((src, i) => (
                 <div key={src + i} className={`case-tile relative overflow-hidden rounded-2xl border border-[var(--color-border)] ${i === 0 ? 'col-span-2 row-span-2' : ''}`}>
-                  <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+                  <img src={src} alt="" decoding="async" className="h-full w-full object-cover" loading="lazy" />
                 </div>
               ))}
             </div>

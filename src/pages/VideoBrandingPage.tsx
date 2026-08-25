@@ -51,7 +51,7 @@ function HeroVideoSection() {
   return (
     <section id="hero" className="relative flex min-h-[100svh] scroll-mt-24 flex-col justify-end overflow-hidden pb-16 pt-32 sm:pb-24">
       <div className="absolute inset-0 -z-10">
-        <img src={CASE.cover} alt="" className="h-full w-full scale-110 object-cover opacity-30 blur-2xl" />
+        <img src={CASE.cover} alt="" decoding="async" className="h-full w-full scale-110 object-cover opacity-30 blur-2xl" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/30 via-[var(--color-bg)]/60 to-[var(--color-bg)]" />
       </div>
 
@@ -226,7 +226,7 @@ function CaseSection() {
               transition={{ delay: (i % 5) * 0.06 }}
               className="aspect-[3/4] overflow-hidden rounded-2xl border border-[var(--color-border)]"
             >
-              <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <img src={src} alt="" decoding="async" className="h-full w-full object-cover" loading="lazy" />
             </motion.div>
           ))}
         </div>

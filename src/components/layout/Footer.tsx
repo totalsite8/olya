@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-[var(--color-border)] px-6 pb-10 pt-24 sm:px-10 lg:px-16">
       <div className="absolute inset-0 -z-10">
-        <img src={IMG.footer.background} alt="" className="h-full w-full object-cover opacity-60" />
+        <img src={IMG.footer.background} alt="" decoding="async" className="h-full w-full object-cover opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/70 to-[var(--color-bg)]/20" />
       </div>
 

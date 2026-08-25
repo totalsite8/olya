@@ -118,7 +118,7 @@ export function AboutPage() {
             steps={timelineSteps}
             renderMedia={(activeIndex, step) => (
               <div className="relative aspect-[4/5] w-full max-w-[440px] overflow-hidden rounded-3xl border border-[var(--color-border)] shadow-2xl">
-                <img src={step.image} alt={step.title} className="h-full w-full object-cover" />
+                <img src={step.image} alt={step.title} decoding="async" className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <span className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full bg-black/40 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
                   {activeIndex === 0 ? <GraduationCap size={13} /> : <span className="font-mono-num">{String(activeIndex).padStart(2, '0')}</span>}

@@ -55,7 +55,7 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} className="relative flex min-h-[100svh] flex-col overflow-hidden pb-10 pt-28 sm:pb-20 sm:pt-32">
       <motion.div style={{ y: bgY }} className="absolute inset-0 -z-10">
-        <img src={IMG.hero.background} alt="" className="h-full w-full object-cover opacity-80" />
+        <img src={IMG.hero.background} alt="" decoding="async" className="h-full w-full object-cover opacity-80" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg)]/10 via-transparent to-[var(--color-bg)]" />
       </motion.div>
 
@@ -112,7 +112,7 @@ export function HeroSection() {
                 data-cursor-hover
                 className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-3xl p-5"
               >
-                <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                <img src={card.image} alt="" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
                 <div className={`absolute inset-0 ${card.tone === 'pink' ? 'bg-gradient-to-t from-black/55 via-black/10 to-transparent' : 'bg-gradient-to-t from-black/85 via-black/20 to-transparent'}`} />
                 <div className="relative z-10">
                   <h3 className="font-display whitespace-pre-line text-xl font-semibold leading-tight text-white">{card.title}</h3>
@@ -140,7 +140,7 @@ export function HeroSection() {
                 data-cursor-hover
                 className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-3xl p-5 sm:p-6"
               >
-                <img src={card.image} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src={card.image} alt="" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className={`absolute inset-0 ${card.tone === 'pink' ? 'bg-gradient-to-t from-black/50 via-black/10 to-transparent' : 'bg-gradient-to-t from-black/85 via-black/20 to-transparent'}`} />
                 <div className="relative z-10">
                   <h3 className="font-display whitespace-pre-line text-lg font-semibold leading-tight text-white sm:text-xl">{card.title}</h3>
