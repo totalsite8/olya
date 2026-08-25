@@ -178,7 +178,7 @@ export const PROJECTS: PortfolioProject[] = [
     categoryLabel: 'Запуск бренда',
     year: '2020 — 2023 г.',
     tags: ['Брендинг', 'Упаковка', 'E-commerce'],
-    cover: IMG.ecozavr.productGrid,
+    cover: IMG.ecozavr.adCover,
     task:
       'Рынок бытовой химии переполнен. Необходимо было разработать яркий и эмоциональный бренд, который бы доносил ценности экологичности и безопасности, но при этом не выглядел скучно. Ключевая задача — привлечь внимание семейной аудитории и владельцев домашних животных.',
     role: [
@@ -196,14 +196,46 @@ export const PROJECTS: PortfolioProject[] = [
       footnote: 'Вывод: чистый, понятный и эмоциональный дизайн стал ключевым фактором коммерческого успеха бренда.',
     },
     gallery: [
-      IMG.ecozavr.productGrid,
       IMG.ecozavr.adCover,
+      IMG.ecozavr.productGrid,
       IMG.ecozavr.bottleInHand,
       IMG.ecozavr.yellowBottleFlower,
-      IMG.ecozavr.greenBottle,
       IMG.ecozavr.dualBottles,
       IMG.ecozavr.dogAndBottle,
       IMG.ecozavr.dogWash,
+    ],
+    galleryGroups: [
+      {
+        title: 'Ключевые кадры и рекламный ключевой визуал',
+        images: [
+          IMG.ecozavr.adCover,
+          IMG.ecozavr.productGrid,
+          IMG.ecozavr.bottleInHand,
+          IMG.ecozavr.yellowBottleFlower,
+        ],
+      },
+      {
+        title: 'Линейка SKU: гели, мыло, шампуни для дома и питомцев',
+        images: [
+          IMG.ecozavr.greenBottle,
+          IMG.ecozavr.dualBottles,
+          IMG.ecozavr.whiteDetergent,
+          IMG.ecozavr.orangeSoap,
+          IMG.ecozavr.purpleSoapDetail,
+          IMG.ecozavr.foamPump,
+        ],
+      },
+      {
+        title: 'Предметная и лайфстайл-съёмка для карточек товара',
+        images: [
+          IMG.ecozavr.greenBottleFoam,
+          IMG.ecozavr.yellowBottlePour,
+          IMG.ecozavr.greenBottleApples,
+          IMG.ecozavr.purpleBottleSink,
+          IMG.ecozavr.dogAndBottle,
+          IMG.ecozavr.dogWash,
+        ],
+      },
     ],
   },
   {
@@ -214,7 +246,7 @@ export const PROJECTS: PortfolioProject[] = [
     categoryLabel: 'Презентации',
     year: '2026',
     tags: ['Питч-дек', 'Инфографика', 'Сторителлинг'],
-    cover: IMG.projects.socialCover,
+    cover: IMG.pitch.caseCover,
     task:
       'Собрать несколько прикладных кейсов дизайна презентаций: от аналитического отчёта по логистике до концепции загородного дома в стиле Japandi, темы профессионального выгорания и разбора рынка социальных сетей.',
     role: [
@@ -233,6 +265,45 @@ export const PROJECTS: PortfolioProject[] = [
       IMG.projects.burnoutStatistics,
       IMG.projects.socialCover,
       IMG.projects.socialTimeline,
+    ],
+    galleryGroups: [
+      {
+        title: 'Логистика: аналитический отчёт для бизнеса',
+        images: [IMG.projects.logisticsCover, IMG.projects.logisticsIntro],
+      },
+      {
+        title: 'House CUBE: концепция эко-отеля в стиле Japandi',
+        images: [
+          IMG.projects.cubeCover,
+          IMG.projects.cubeJapandi,
+          IMG.projects.cubeMasterclasses,
+          IMG.projects.cubeConcept,
+          IMG.projects.cubeMarketResearch,
+          IMG.projects.cubeLogo,
+        ],
+      },
+      {
+        title: 'Профессиональное выгорание: исследование и рекомендации',
+        images: [
+          IMG.projects.burnoutCover,
+          IMG.projects.burnoutDefinition,
+          IMG.projects.burnoutStatistics,
+          IMG.projects.burnoutPrevention,
+          IMG.projects.burnoutMicrosoft,
+          IMG.projects.burnoutQuote,
+        ],
+      },
+      {
+        title: 'Разбор рынка социальных сетей',
+        images: [
+          IMG.projects.socialCover,
+          IMG.projects.socialTimeline,
+          IMG.projects.socialNeuralQuote,
+          IMG.projects.socialGoals,
+          IMG.projects.socialGeo,
+          IMG.projects.socialAge,
+        ],
+      },
     ],
   },
 ]

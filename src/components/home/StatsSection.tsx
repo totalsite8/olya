@@ -8,26 +8,28 @@ const STATS = [
   { value: 4.9, suffix: ' / 5.0', label: 'Средний рейтинг бренда', decimals: 1 },
 ]
 
-function Counter({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+function Counter({ value, suffix, decimals = 0, start }: { value: number; suffix: string; decimals?: number; start: boolean }) {
   const [display, setDisplay] = useState(0)
+  const startedRef = useRef(false)
 
   useEffect(() => {
-    if (!inView) return
+    if (!start || startedRef.current) return
+    startedRef.current = true
     const duration = 1400
-    const start = performance.now()
+    const startTime = performance.now()
+    let raf = 0
     const tick = (now: number) => {
-      const progress = Math.min(1, (now - start) / duration)
+      const progress = Math.min(1, (now - startTime) / duration)
       const eased = 1 - Math.pow(1 - progress, 3)
       setDisplay(eased * value)
-      if (progress < 1) requestAnimationFrame(tick)
+      if (progress < 1) raf = requestAnimationFrame(tick)
     }
-    requestAnimationFrame(tick)
-  }, [inView, value])
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [start, value])
 
   return (
-    <span ref={ref} className="font-mono-num">
+    <span className="font-mono-num">
       {decimals > 0 ? display.toFixed(decimals) : Math.round(display).toLocaleString('ru-RU')}
       {suffix}
     </span>
@@ -35,8 +37,25 @@ function Counter({ value, suffix, decimals = 0 }: { value: number; suffix: strin
 }
 
 export function StatsSection() {
+  // Отслеживаем видимость всей секции (а не крошечного <span> с числом) —
+  // на мобильных устройствах высота видимой области скачет из-за
+  // скрывающейся адресной строки, и observer на маленьком элементе
+  // с margin в пикселях мог никогда не сработать. amount — надёжнее.
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 })
+  // Подстраховка: если по какой-то причине observer так и не сработал
+  // (например, секция уже видна при заходе на страницу и её верх/низ
+  // не пересекают границы viewport), запускаем счётчики принудительно
+  // через небольшую паузу после монтирования.
+  const [forceStart, setForceStart] = useState(false)
+  useEffect(() => {
+    const timeout = setTimeout(() => setForceStart(true), 900)
+    return () => clearTimeout(timeout)
+  }, [])
+  const start = isInView || forceStart
+
   return (
-    <section className="relative border-y border-[var(--color-border)] px-5 py-12 sm:px-10 sm:py-20 lg:px-16">
+    <section ref={sectionRef} className="relative border-y border-[var(--color-border)] px-5 py-12 sm:px-10 sm:py-20 lg:px-16">
       <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-8 lg:grid-cols-4">
         {STATS.map((stat, i) => (
           <motion.div
@@ -47,7 +66,7 @@ export function StatsSection() {
             transition={{ delay: i * 0.1, duration: 0.6 }}
           >
             <p className="font-display text-4xl font-semibold tracking-tight sm:text-6xl">
-              <Counter value={stat.value} suffix={stat.suffix} decimals={stat.decimals} />
+              <Counter value={stat.value} suffix={stat.suffix} decimals={stat.decimals} start={start} />
             </p>
             <p className="mt-2 text-sm text-[var(--color-text-muted)]">{stat.label}</p>
           </motion.div>

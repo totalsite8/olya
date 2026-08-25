@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { IMG } from '../../data/images'
 
 export function CtaSection() {
   return (
     <section className="relative overflow-hidden px-5 py-16 sm:px-10 sm:py-32 lg:px-16">
+      <img src={IMG.shared.servicesBridge} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
       <div className="grain-gradient absolute inset-0" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/60 to-[var(--color-bg)]/70" />
       <div className="relative mx-auto flex max-w-[1400px] flex-col items-center text-center">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
