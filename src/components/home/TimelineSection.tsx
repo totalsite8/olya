@@ -1,7 +1,7 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { GraduationCap, ChevronRight } from 'lucide-react'
-import { useActiveIndex } from '../../hooks/useActiveIndex'
+import { ensureGsapPlugins, gsap, ScrollTrigger } from '../../lib/gsap'
 import { TIMELINE, EDUCATION } from '../../data/timeline'
 import { IMG } from '../../data/images'
 
@@ -29,27 +29,85 @@ const STEPS = [
 ]
 
 /**
- * «Мой путь» как технологичный лог процесса: карьера читается как трасса
- * выполнения системы — индекс-панель слева (как список процессов/коммитов),
- * активный шаг подсвечивается акцентным маркером, а справа — «экран»
- * с UI-скриншотом инструмента этого периода и монотипографикой статуса.
+ * «Мой путь» как технологичный лог процесса: на десктопе секция «залипает»
+ * на весь экран (GSAP ScrollTrigger pin) — высота блока не растягивается
+ * «портянкой», а сам скролл колёсиком переключает активный шаг слева и
+ * содержимое «экрана» справа. Когда доходим до последнего шага, страница
+ * отпускается и скролл идёт дальше как обычно.
  */
 export function TimelineSection() {
-  const { active, setRef } = useActiveIndex(STEPS.length)
-  const trackRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<ScrollTrigger | null>(null)
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    ensureGsapPlugins()
+    const section = sectionRef.current
+    const stage = stageRef.current
+    if (!section || !stage) return
+
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 1024px)', () => {
+      const steps = STEPS.length
+      const st = ScrollTrigger.create({
+        trigger: section,
+        // top+=110 — небольшой отступ, чтобы «залипший» блок не прятался
+        // под плавающим хедером (fixed, z-50), а фиксировался чуть ниже него.
+        start: 'top top+=110',
+        end: () => `+=${steps * 480}`,
+        pin: stage,
+        pinSpacing: true,
+        scrub: 0.3,
+        onUpdate: (self) => {
+          const idx = Math.min(steps - 1, Math.floor(self.progress * steps))
+          setActive(idx)
+        },
+      })
+      triggerRef.current = st
+
+      return () => {
+        st.kill()
+        triggerRef.current = null
+      }
+    })
+
+    return () => mm.revert()
+  }, [])
+
+  // Клик по пункту слева должен реально промотать страницу к соответствующему
+  // моменту pin-анимации — иначе следующий скролл читателя «перепрыгнет»
+  // активный шаг обратно на позицию, посчитанную по scroll-прогрессу.
+  const goToStep = (i: number) => {
+    const st = triggerRef.current
+    if (!st) {
+      setActive(i)
+      return
+    }
+    const progress = (i + 0.5) / STEPS.length
+    const targetScroll = st.start + progress * (st.end - st.start)
+    // @ts-expect-error — глобальная ссылка на экземпляр Lenis из SmoothScrollProvider
+    const lenis = window.__lenis
+    if (lenis && typeof lenis.scrollTo === 'function') {
+      lenis.scrollTo(targetScroll, { duration: 1 })
+    } else {
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' })
+    }
+  }
 
   return (
-    <section className="relative overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] px-5 py-14 sm:px-10 sm:py-24 lg:px-16">
+    <section ref={sectionRef} className="relative overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg-soft)] px-5 py-14 sm:px-10 sm:py-24 lg:px-16 lg:py-10">
       <div className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(var(--color-text)_1px,transparent_1px),linear-gradient(90deg,var(--color-text)_1px,transparent_1px)] [background-size:56px_56px]" />
 
-      <div className="relative mx-auto max-w-[1400px]">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-14">
+      <div ref={stageRef} className="relative mx-auto max-w-[1400px]">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-14 lg:mb-6">
           <div>
             <p className="mb-3 flex items-center gap-2 text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
               <span className="h-px w-8 bg-[var(--color-accent)]" />
               8 лет в дизайне
             </p>
-            <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-6xl">Мой путь</h2>
+            <h2 className="font-display text-4xl font-semibold tracking-tight sm:text-6xl lg:text-5xl">Мой путь</h2>
           </div>
           <span className="font-mono-num hidden items-center gap-2 rounded-full border border-[var(--color-border)] px-3.5 py-1.5 text-xs text-[var(--color-text-muted)] sm:flex">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--color-accent)]" />
@@ -86,18 +144,19 @@ export function TimelineSection() {
           ))}
         </div>
 
-        {/* Десктоп: индекс-панель слева + «активный экран» справа, sticky-синхронизация по скроллу.
-            Каждый пункт занимает почти целый экран прокрутки — переключение начинается только
-            после того, как правая панель «залипла» под хедером и оба блока видны целиком,
-            а не раньше, пока секция ещё выезжает на экран. */}
-        <div className="hidden lg:grid lg:grid-cols-[340px_1fr] lg:gap-10">
-          <div ref={trackRef} className="flex flex-col py-[6vh]">
+        {/* Десктоп: индекс-панель слева + «активный экран» справа. Сама секция «залипает»
+            на весь экран через GSAP pin (см. useEffect выше) — контент не растягивается
+            по высоте, а переключается по прогрессу скролла, пока страница неподвижна. */}
+        <div className="hidden lg:grid lg:max-h-[78vh] lg:grid-cols-[340px_1fr] lg:gap-10">
+          <div className="flex flex-col justify-center gap-2">
             {STEPS.map((step, i) => (
-              <div key={step.title} ref={setRef(i)} className="group relative flex min-h-[88vh] flex-col justify-center border-l border-[var(--color-border)] pl-6">
-                <span
-                  className="absolute left-0 top-1/2 h-8 w-px -translate-y-1/2 bg-[var(--color-accent)] transition-opacity duration-300"
-                  style={{ opacity: active === i ? 1 : 0 }}
-                />
+              <button
+                key={step.title}
+                type="button"
+                onClick={() => goToStep(i)}
+                className="group relative flex flex-col justify-center border-l py-4 pl-6 text-left transition-colors duration-300"
+                style={{ borderColor: active === i ? 'var(--color-accent)' : 'var(--color-border)' }}
+              >
                 <span
                   className="absolute -left-[3px] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full transition-all duration-300"
                   style={{
@@ -119,16 +178,16 @@ export function TimelineSection() {
                   <motion.span
                     initial={{ opacity: 0, x: -6 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="mt-2 flex items-center gap-1 text-xs font-medium text-[var(--color-accent)]"
+                    className="mt-1.5 flex items-center gap-1 text-xs font-medium text-[var(--color-accent)]"
                   >
                     <ChevronRight size={13} /> {step.role}
                   </motion.span>
                 )}
-              </div>
+              </button>
             ))}
           </div>
 
-          <div className="sticky top-28 h-fit">
+          <div className="flex flex-col justify-center">
             <div className="overflow-hidden rounded-3xl border border-[var(--color-border)] bg-black shadow-2xl">
               <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-4 py-2.5">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
