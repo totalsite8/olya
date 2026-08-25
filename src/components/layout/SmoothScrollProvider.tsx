@@ -21,6 +21,12 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
       touchMultiplier: 1.1,
+      // Раньше плавный переход по якорным ссылкам (#story и т.д.) обеспечивал
+      // нативный CSS scroll-behavior: smooth, который конфликтовал с Lenis
+      // (два независимых менеджера скролла одновременно анимируют позицию —
+      // отсюда рывки). Теперь якоря обрабатывает сам Lenis — тот же плавный
+      // эффект, но без конфликта.
+      anchors: true,
     })
 
     lenis.on('scroll', ScrollTrigger.update)

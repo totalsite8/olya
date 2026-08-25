@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
   --font-display: 'Bricolage Grotesque', 'Manrope', system-ui, sans-serif;
@@ -62,8 +63,13 @@
   box-sizing: border-box;
 }
 
+/* Нативный scroll-behavior: smooth намеренно не используется — вместе с
+   Lenis это создаёт классический конфликт «два менеджера скролла»
+   (браузер и Lenis одновременно пытаются анимировать позицию), из-за
+   которого скролл ощущается рваным/тяжёлым. Плавные якорные переходы
+   обеспечивает сам Lenis (см. SmoothScrollProvider: anchors: true). */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 html,
